@@ -17,6 +17,7 @@ import { Admin } from "./pages/Admin";
 
 // Dizayn
 import { customToken } from "./style/AppDesignConfig";
+import { ProductDetails } from "./modules/products/components/ProductDetails";
 
 const App = () => {
 
@@ -36,8 +37,9 @@ const App = () => {
             <Route path="products" element={<Product />} > {/* ürünleri yönetmek için oluşturulmuş Route */}
               <Route path="" element={<ProductList />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
               <Route path="add" element={<AddProductForm />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
-              <Route path="edit" element={<EditProductForm />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
-              <Route path="delete" element={<DeleteProductForm />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
+              <Route path=":id" element={<ProductDetails />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
+              <Route path="edit/:id" element={<EditProductForm />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
+              <Route path="delete/:id" element={<DeleteProductForm />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
             </Route>
           </Route>
         </Routes>

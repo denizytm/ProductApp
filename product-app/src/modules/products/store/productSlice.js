@@ -24,7 +24,7 @@ const productSlice = createSlice({
         createProduct: (state,action) => {
             const newProduct = action.payload.newProduct;
             state.products = [...state.products,newProduct]
-            if(!state.categories.has(newProduct.category))
+            if(!state.categories.includes(newProduct.category))
                 state.categories = [...state.categories,newProduct.category];
         },
         createProducts: (state,action) => {
@@ -38,7 +38,7 @@ const productSlice = createSlice({
                 if(product.id === updateProduct.id) return updateProduct;
                 return product;
             })
-            if(!state.categories.has(updateProduct.category))
+            if(!state.categories.includes(updateProduct.category))
                 state.categories = [...state.categories,updateProduct.category];
         },
         deleteProduct: (state,action) => {
@@ -55,8 +55,8 @@ const productSlice = createSlice({
                 state.loading = false;
                 state.products = action.payload;
                 let categoriesData = [];
-                action.payload.foreach(data => {
-                    if(!categoriesData.has(data.category)) categoriesData.push(data.category);
+                action.payload.forEach(data => {
+                    if(!categoriesData.includes(data.category)) categoriesData.push(data.category);
                 })
                 state.categories = categoriesData;
             })
