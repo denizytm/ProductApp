@@ -2,12 +2,13 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Button } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import { useGetProducts } from '../hooks/useGetProducts'
 
 export const ProductList = () => {
     
     const navigate = useNavigate();
 
-    const products = useSelector(state=>state.products.products)
+    const products = useGetProducts();
     
     const categories = useSelector(state=>state.products.categories)
 

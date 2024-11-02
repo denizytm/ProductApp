@@ -33,13 +33,6 @@ export const SidebarComponent = ({title}) => {
                 <Menu.Item key="2" icon={<HomeOutlined />} onClick={() => navigate(`/admin/${title}/add`)}>
                     <span style={{marginLeft : "5px"}} >Add {textTitle}</span>
                 </Menu.Item>
-                <Menu.Item key="3" icon={<HomeOutlined />} onClick={() => navigate(`/admin/${title}/edit`)}>
-                    <span style={{marginLeft : "5px"}} >Edit {textTitle}</span>
-                </Menu.Item>
-                <Menu.Item key="4" icon={<HomeOutlined />} onClick={() => navigate(`/admin/${title}/delete`)}>
-                    <span style={{marginLeft : "5px"}} >Delete {textTitle}</span>
-                </Menu.Item>
-                <Menu.Item style={{color : "red"}} >Hello</Menu.Item>
             </Menu>
         </Sider>
     );

@@ -68,7 +68,6 @@ const productSlice = createSlice({
 });
 
 export const { 
-    getProducts,
     createProduct,
     createProducts,
     updateProduct,

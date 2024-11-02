@@ -1,18 +1,12 @@
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux';
-import { fetchProducts } from './store/productSlice';
+import React from 'react'
 import { Outlet } from 'react-router-dom';
+import { useFetchProducts } from './hooks/useFetchProducts';
 
 const Product = () => {
 
-  const dispatch = useDispatch();
-
-  useEffect(()=>{
-    ( async () => {
-        await dispatch(fetchProducts());
-    } )();
-
-  },[dispatch])
+  const fetchProducts = useFetchProducts();
+  
+  fetchProducts();
 
   return (
     <Outlet />

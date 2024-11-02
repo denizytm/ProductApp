@@ -6,8 +6,7 @@ import {
   InputNumber,
   Segmented,
 } from 'antd';
-import { useDispatch } from 'react-redux';
-import { createProduct } from '../store/productSlice';
+import { useCreateProduct } from '../hooks/useCreateProduct';
 
 const formItemLayout = {
   labelCol: {
@@ -30,7 +29,7 @@ const formItemLayout = {
 
 export const AddProductForm = () => {
 
-    const dispatch = useDispatch();
+    const create = useCreateProduct();
 
     const [componentVariant, setComponentVariant] = useState('filled');
     const onFormVariantChange = ({ variant }) => {
@@ -41,13 +40,14 @@ export const AddProductForm = () => {
         name : "",
         price : "",
         text : "",
+        category : "",
         discount : false,
         discountPer : 0
     });
 
     const handleSubmit = () => {
         if(Object.values(formData).every(value => value !== "" && value !== null)) // Form verisinde girilenden boş olan var mı diye bakıyoruz
-            dispatch(createProduct({newProduct : formData})) // eğer boş olan bir input değeri yoksa dispatch aracılığıyla ürünü state.procuts'a ekliyoruz
+          create(formData) // eğer boş olan bir input değeri yoksa dispatch aracılığıyla ürünü state.procuts'a ekliyoruz
         else alert("There are empty inputs") // eğer boş olan bir veri varsa ürünü eklemeyip kullanıcıyı uyaracaktır
     }
 
@@ -83,6 +83,22 @@ export const AddProductForm = () => {
             />
           </Form.Item>
     
+          <Form.Item
+            label="Category"
+            name="category"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter a category for the product',
+              },
+            ]}
+          >
+            <Input
+              value={formData.category}
+              onChange={(e)=>setFormData(oV=>({...oV,category : e.target.value}))}
+            />
+          </Form.Item>
+
           <Form.Item
             label="Price"
             name="price"
