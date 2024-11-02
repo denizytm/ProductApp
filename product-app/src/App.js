@@ -1,14 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import { Hello } from './Components/Hello';
-import { Good } from "./Components/Good";
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <Routes  >
-        <Route path="/" element={<Hello />} >
-          <Route path="naber" element={<Good />} />
-        </Route>
+        <Route path="/" element={<>Hello World</>} />
       </Routes>
     </BrowserRouter>
   );
