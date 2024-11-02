@@ -22,24 +22,30 @@ const App = () => {
 
   return (
     <ConfigProvider theme={{
-      token : customToken
+      token : customToken // tema tokenimizi ant Design'ın tokeni olarak provider'e veriyoruz
     }} >
       <BrowserRouter> {/* react-router-dom yapısını ekledim ki girilen path'e göre kullanıcıyı yönlendirebileyim */}
         <Routes  >
+
           <Route path="/admin" element={<Admin />}>  {/* Admin için oluşturulmuş Route */}
+
             <Route path="users" element={<User />} > {/* kullanıcıları yönetmek için oluşturulmuş Route */}
-              <Route path="" element={<UserList />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
-              <Route path="add" element={<UserList />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
-              <Route path="edit" element={<UserList />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
-              <Route path="delete" element={<UserList />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
+              <Route path="" element={<UserList />} /> {/* kullanıcıları liste halinde döndüren route */}
+              <Route path="add" element={<UserList />} /> {/* yeni bir kullanıcı ekleten route */}
+              <Route path="edit" element={<UserList />} /> {/* varolan bir kullanıcının bilgilerini güncelleyen route */}
+              <Route path="delete" element={<UserList />} /> {/* kullanıcıyı sistemden kaldıran route */}
             </Route>
+
             <Route path="products" element={<Product />} > {/* ürünleri yönetmek için oluşturulmuş Route */}
-              <Route path="" element={<ProductList />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
-              <Route path="add" element={<AddProductForm />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
-              <Route path=":id" element={<ProductDetails />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
-              <Route path="edit/:id" element={<EditProductForm />} /> {/* kullanıcıları yönetmek için oluşturulmuş Route */}
+              <Route path="" element={<ProductList />} /> {/* ürünlerin listesini dönen route */}
+              <Route path="add" element={<AddProductForm />} /> {/* yeni ürün ekleten route */}
+              <Route path=":id" element={<ProductDetails />} /> {/* id'si girilen ürünün detaylarını gösteren route */}
+              <Route path="edit/:id" element={<EditProductForm />} /> {/* varolan ürünü güncelleyen route */}
             </Route>
           </Route>
+
+          <Route path="/" element={<>Hello World</>} />
+
         </Routes>
       </BrowserRouter>
     </ConfigProvider>

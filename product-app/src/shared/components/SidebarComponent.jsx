@@ -26,8 +26,13 @@ export const SidebarComponent = ({title}) => {
             <div className="logo" style={{ height: '32px', margin: '16px', color: '#fff', fontSize: '18px', textAlign: 'center' }}>
                 Admin
             </div>
-            <Menu theme='dark' mode="inline" defaultSelectedKeys={['1']}>
-                <Menu.Item style={{overflow : "visible"}} key="1" icon={<HomeOutlined />} onClick={() => navigate(`/admin/${title}`)}>
+            <Menu
+              style={{gap : 10}} 
+              theme='dark' 
+              mode="inline" 
+              defaultSelectedKeys={['1']}
+            >
+                <Menu.Item style={{marginBottom : 10}} key="1" icon={<HomeOutlined />} onClick={() => navigate(`/admin/${title}`)}>
                     <span style={{marginLeft : "5px"}} >{textTitle}s</span>
                 </Menu.Item>
                 <Menu.Item key="2" icon={<HomeOutlined />} onClick={() => navigate(`/admin/${title}/add`)}>

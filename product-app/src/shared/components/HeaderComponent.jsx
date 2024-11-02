@@ -9,15 +9,16 @@ export const HeaderComponent = () => {
     const navigate = useNavigate();
 
     return (
-        <Header
+      <Header
         style={{
           display: 'flex',
           alignItems: 'center',
           height : '50px',
-          color : 'white'
+          color : 'white',
+          paddingLeft : 20
         }} 
       >
-
+        <h1 style={{marginRight : 20}} >Product App</h1>
         <Menu
           theme="dark"
           mode="horizontal"

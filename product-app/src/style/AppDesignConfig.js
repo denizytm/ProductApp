@@ -9,7 +9,7 @@ export const customToken = {
   colorLink: '#1DA57A', // Özel link rengi
   colorText: '#000000', // Temel metin rengi
   colorTextSecondary: '#555555', // İkincil metin rengi
-  colorBackground: '#FFFFFF', // Arka plan rengi
+  colorBackground: '#red', // Arka plan rengi
   colorBorder: '#E8E8E8', // Kenar rengi
   borderRadius: '8px', // Genel kenar yuvarlama
   borderRadiusSm: '4px', // Küçük kenar yuvarlama
@@ -22,4 +22,5 @@ export const customToken = {
   controlHeight: '40px', // Kontrol bileşenleri için yükseklik
   padding: '16px', // Genel padding
   margin: '16px', // Genel margin
+
 };
