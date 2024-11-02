@@ -17,13 +17,14 @@ import { Admin } from "./pages/Admin";
 // Dizayn
 import { customToken } from "./style/AppDesignConfig";
 import { ProductDetails } from "./modules/products/components/ProductDetails";
+import Hello from "./shared/components/Hello";
 
 const App = () => {
 
   return (
-    <ConfigProvider theme={{
+    <ConfigProvider/*  theme={{
       token : customToken // tema tokenimizi ant Design'ın tokeni olarak provider'e veriyoruz
-    }} >
+    }} */ >
       <BrowserRouter> {/* react-router-dom yapısını ekledim ki girilen path'e göre kullanıcıyı yönlendirebileyim */}
         <Routes  >
 
@@ -44,7 +45,7 @@ const App = () => {
             </Route>
           </Route>
 
-          <Route path="/" element={<>Hello World</>} />
+          <Route path="/" element={<Hello />} />
 
         </Routes>
       </BrowserRouter>

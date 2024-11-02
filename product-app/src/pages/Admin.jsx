@@ -1,10 +1,17 @@
 import React from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { Layout, Menu } from 'antd'
-import { HeaderComponent } from '../shared/components/HeaderComponent';
-import { SidebarComponent } from '../shared/components/SidebarComponent';
+import { Layout, Menu, theme } from 'antd'
+import { AdminHeaderComponent } from '../components/admin/AdminHeaderComponent';
+import { AdminSidebarComponent } from '../components/admin/AdminSidebarComponent';
+import { BreadCrumbComponent } from '../components/global/BreadCrumbComponent';
+import { ContentComponent } from '../components/global/ContentComponent';
 
 const { Header, Content, Sider } = Layout;
+
+const items1 = ['Admin', 'User'].map((key) => ({
+  key,
+  label: `${key}`,
+}));
 
 export const Admin = () => {
 
@@ -13,25 +20,33 @@ export const Admin = () => {
   const path = useLocation();
   const title = path.pathname.split("/")[2];
 
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+
   return (
     <Layout>
-      <Layout style={{
-        height : "50px",
-        width : "100%",
-        position : "fixed",
-        top : 0
-      }} >
-        <HeaderComponent />
-      </Layout>
-      <Layout >
-        <SidebarComponent {...{title}} />
-      </Layout>
-      <Layout style={{
-        marginLeft : "200px",
-        marginTop : "50px"
-      }} >
-        <h1 style={{margin : "25px"}} >{title}</h1>
-        <Outlet /> {/* Outlet, "/admin" path'inden sonra girilecek olan path değerine göre diğer module dosyalarında bulunan Componenti buraya eklememi sağlar */}
+      <AdminHeaderComponent {...{items1}} />
+      <Layout>
+        <AdminSidebarComponent {...{title : "naber"}} />
+        <Layout
+         style={{
+          padding: '0 24px 24px',
+         }}
+        >
+          <BreadCrumbComponent />
+          <Content
+           style={{
+           padding: 24,
+           margin: 0,
+           minHeight: 280,
+           background: colorBgContainer,
+           borderRadius: borderRadiusLG,
+          }}
+          >
+            <Outlet />
+          </Content>
+        </Layout>
       </Layout>
     </Layout>
   )
