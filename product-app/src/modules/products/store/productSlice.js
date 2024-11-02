@@ -11,6 +11,7 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async ()
 
 const productInitialSlice = {
     products : [],
+    categories : [],
     loading : true,
     error : false
 }
@@ -20,12 +21,11 @@ const productSlice = createSlice({
     initialState : productInitialSlice,
     reducers: {
         // Synchronous actions if needed
-        getProducts: (state,action) => {
-            return state.products;
-        },
         createProduct: (state,action) => {
             const newProduct = action.payload.newProduct;
             state.products = [...state.products,newProduct]
+            if(!state.categories.has(newProduct.category))
+                state.categories = [...state.categories,newProduct.category];
         },
         createProducts: (state,action) => {
             action.payload.products.forEach(product=>{    
@@ -33,10 +33,13 @@ const productSlice = createSlice({
             }) 
         },
         updateProduct : (state,action) => {
+            const updateProduct = action.payload.updateProduct;
             state.products = state.products.map(product => {
-                if(product.id === action.payload.updateProductId) return action.payload.updateProduct;
+                if(product.id === updateProduct.id) return updateProduct;
                 return product;
             })
+            if(!state.categories.has(updateProduct.category))
+                state.categories = [...state.categories,updateProduct.category];
         },
         deleteProduct: (state,action) => {
             state.products = state.products.filter(product=>product.id != action.payload.deleteProductId);
@@ -51,6 +54,11 @@ const productSlice = createSlice({
             .addCase(fetchProducts.fulfilled, (state, action) => {
                 state.loading = false;
                 state.products = action.payload;
+                let categoriesData = [];
+                action.payload.foreach(data => {
+                    if(!categoriesData.has(data.category)) categoriesData.push(data.category);
+                })
+                state.categories = categoriesData;
             })
             .addCase(fetchProducts.rejected, (state, action) => {
                 state.loading = false;
