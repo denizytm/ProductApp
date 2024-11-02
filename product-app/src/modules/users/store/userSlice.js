@@ -5,27 +5,32 @@ import { fetchUsersFromAPI } from '../services/userApi';
 
 // Async thunk to fetch user data
 
-export const fetchUsersReducer = createAsyncThunk('users/fetchUsers', async () => {
+export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
     return await fetchUsersFromAPI();
 });
 
 const userInitialState = {
     users : [],
     loading : true,
-    error : null
+    error : false
 }
 
 const userSlice = createSlice({
     name: 'users',
-    userInitialState,
+    initialState : userInitialState,
     reducers: {
         // Synchronous actions if needed
-        getUsers: (state,action) => {
+        getUsers: (state) => {
             return state.users;
         },
         createUser: (state,action) => {
             const newUser = action.payload.newUser;
             state.users = [...state.users,newUser]
+        },
+        createUsers: (state,action) => {
+            action.payload.users.forEach(user=>{    
+                state.users.push(user);
+            }) 
         },
         updateUser : (state,action) => {
             state.users = state.users.map(user => {
@@ -45,7 +50,7 @@ const userSlice = createSlice({
             })
             .addCase(fetchUsers.fulfilled, (state, action) => {
                 state.loading = false;
-                state.currentUser = action.payload;
+                state.users = [...state.users,...action.payload];
             })
             .addCase(fetchUsers.rejected, (state, action) => {
                 state.loading = false;
@@ -55,6 +60,10 @@ const userSlice = createSlice({
 });
 
 export const { 
+    getUsers,
     createUser,
+    createUsers,
+    updateUser,
+    deleteUser
 } = userSlice.actions;
 export default userSlice.reducer;

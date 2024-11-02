@@ -1,52 +1,58 @@
-/* // src/modules/user/store/userSlice.ts
+// src/modules/user/store/productSlice.js
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { User, UserState } from '../types/userTypes';
-import { fetchUsersF } from '../services/userApi';
+import { fetchProductsAPI } from '../services/productAPI';
 
-// Async thunk to fetch user data
+// Async thunk to fetch product data
 
-export const getUsersF = createAsyncThunk('users/fetchUsers', async () => {
-    return await fetchUsersF();
+export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
+    return await fetchProductsAPI();
 });
 
-const userInitialState = {
-    users : [],
+const productInitialSlice = {
+    products : [],
     loading : true,
-    error : null
+    error : false
 }
 
-const userSlice = createSlice({
-    name: 'users',
-    userInitialState,
+const productSlice = createSlice({
+    name: 'products',
+    initialState : productInitialSlice,
     reducers: {
         // Synchronous actions if needed
-        getUsers
-        createUser: (state,action) => {
-            const newUser = action.payload.newUser;
-            state.users = [...state.users,newUser]
+        getProducts: (state,action) => {
+            return state.products;
         },
-        updateUser : (state,action) => {
-            state.users = state.users.map(user => {
-                if(user.id === action.payload.updateUserId) return action.payload.updateUser;
-                return user;
+        createProduct: (state,action) => {
+            const newProduct = action.payload.newProduct;
+            state.products = [...state.products,newProduct]
+        },
+        createProducts: (state,action) => {
+            action.payload.products.forEach(product=>{    
+                state.products.push(product);
+            }) 
+        },
+        updateProduct : (state,action) => {
+            state.products = state.products.map(product => {
+                if(product.id === action.payload.updateProductId) return action.payload.updateProduct;
+                return product;
             })
         },
-        deleteUser: (state,action) => {
-            state.users = state.users.filter(user=>user.id != action.payload.deleteUserId);
+        deleteProduct: (state,action) => {
+            state.products = state.products.filter(product=>product.id != action.payload.deleteProductId);
         }
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchUsers.pending, (state) => {
+            .addCase(fetchProducts.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchUsers.fulfilled, (state, action) => {
+            .addCase(fetchProducts.fulfilled, (state, action) => {
                 state.loading = false;
-                state.currentUser = action.payload;
+                state.products = action.payload;
             })
-            .addCase(fetchUsers.rejected, (state, action) => {
+            .addCase(fetchProducts.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
             });
@@ -54,6 +60,10 @@ const userSlice = createSlice({
 });
 
 export const { 
-    createUser,
-} = userSlice.actions;
-export default userSlice.reducer; */
+    getProducts,
+    createProduct,
+    createProducts,
+    updateProduct,
+    deleteProduct
+} = productSlice.actions;
+export default productSlice.reducer;

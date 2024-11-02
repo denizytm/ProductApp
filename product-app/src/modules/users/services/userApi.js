@@ -2,8 +2,9 @@
 
 import axios from 'axios';
 
+
 const userInstance = axios.create({
-    baseURL: 'https://api.example.com',  // Kullanıcıları çekeceğimiz API
+    baseURL: `${process.env.REACT_APP_BASE_URL}`,  // Kullanıcıları çekeceğimiz API
     timeout: 10000,
     headers: { 'Content-Type': 'application/json' },
 });
@@ -11,11 +12,6 @@ const userInstance = axios.create({
 // Request interceptor
 userInstance.interceptors.request.use(
     (config) => {
-        // Örneğin, token ekleyebiliriz
-        const token = localStorage.getItem('token');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
         return config;
     },
     (error) => Promise.reject(error)

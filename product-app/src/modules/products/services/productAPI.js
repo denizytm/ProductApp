@@ -2,27 +2,23 @@
 
 import axios from 'axios';
 
-const axiosInstance = axios.create({
-    baseURL: 'https://api.example.com',  // Product'ları çekeceğimiz API
+
+const productInstance = axios.create({
+    baseURL: `${process.env.REACT_APP_BASE_URL}`,  // Ürünleri çekeceğimiz API
     timeout: 10000,
     headers: { 'Content-Type': 'application/json' },
 });
 
 // Request interceptor
-axiosInstance.interceptors.request.use(
+productInstance.interceptors.request.use(
     (config) => {
-        // Örneğin, token ekleyebiliriz
-        const token = localStorage.getItem('token');
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
         return config;
     },
     (error) => Promise.reject(error)
 );
 
 // Response interceptor
-axiosInstance.interceptors.response.use(
+productInstance.interceptors.response.use(
     (response) => response,
     (error) => {
         // Hata durumlarını merkezi olarak işleyebiliriz
@@ -34,4 +30,9 @@ axiosInstance.interceptors.response.use(
     }
 );
 
-export default axiosInstance;
+export const fetchProductsAPI = async () => {
+    const response = await productInstance.get('/products');  // Burada endpoint'i özelleştirin
+    return response.data;
+};
+
+export default productInstance;
