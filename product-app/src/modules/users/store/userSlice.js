@@ -30,8 +30,9 @@ const userSlice = createSlice({
             }) 
         },
         updateUser : (state,action) => {
+            const updateUser = action.payload.updateUser;
             state.users = state.users.map(user => {
-                if(user.id === action.payload.updateUserId) return action.payload.updateUser;
+                if(user.id == updateUser.id) return updateUser;
                 return user;
             })
         },
@@ -47,7 +48,7 @@ const userSlice = createSlice({
             })
             .addCase(fetchUsers.fulfilled, (state, action) => {
                 state.loading = false;
-                state.users = [...state.users,...action.payload];
+                state.users = [...action.payload];
             })
             .addCase(fetchUsers.rejected, (state, action) => {
                 state.loading = false;

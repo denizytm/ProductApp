@@ -4,8 +4,16 @@ import { fetchUsers } from '../store/userSlice';
 const useFetchUsers = () => {
     const dispatch = useDispatch();
 
-    const fetchUsersF = () => {
-        dispatch(fetchUsers());
+    const fetchUsersF = async () => {
+        try {
+            ( async () => {
+                await dispatch(fetchUsers());
+                return true;
+            } )();
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
     return fetchUsersF;

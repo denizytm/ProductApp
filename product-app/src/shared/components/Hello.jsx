@@ -1,54 +1,73 @@
-import React from 'react';
-import { Col, Divider, Row, Card } from 'antd';
-import { useGetProducts } from '../../modules/products/hooks/useGetProducts';
-import { useFetchProducts } from '../../modules/products/hooks/useFetchProducts';
-const App = () => {
+import React, { useState } from 'react';
+import { Button, Table, Space, Tag, Input, Select } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useGetUsers } from '../../modules/users/hooks/useGetUsers';
+import useFetchUsers from '../../modules/users/hooks/useFetchUsers';
 
-  const fetchProducts = useFetchProducts();
+const { Column } = Table;
+const { Option } = Select;
 
-  fetchProducts();
+export const Hello = () => {
 
-  const products = useGetProducts();
-  
-  if(products.length);
-  return  (
-    <>
-      <Divider orientation="left">Products</Divider>
-      <Row>
-        {products.map(product => {
-          return (
-            <Col
-             span={6}
-             xs={{
-              order: 1,
-             }}
-             sm={{
-               order: 2,
-             }}
-             md={{
-               order: 3,
-             }}
-             lg={{
-               order: 4,
-             }}
-            >
-              <Card
-               title={product.name}
-               extra={<a href="#">More</a>}
-               style={{
-                 width: "80%",
-               }}
-              >
-                <p>{product.name}</p>
-                <p>Card content</p>
-                <p>Card content</p>
-              </Card>
-              
-            </Col>
-          )
-        })}
-      </Row>
-    </>
-  );
-}
-export default App;
+    const fetchUsers = useFetchUsers();
+
+    fetchUsers();
+
+    const navigate = useNavigate();
+    const users = useGetUsers();
+
+    const [searchData, setSearchData] = useState("");
+    const [filteredValue, setFilteredValue] = useState("name");
+
+    const filteredUsers = users.filter(user => 
+        user[filteredValue].toString().toLowerCase().includes(searchData.toLowerCase()) // filtered Value değerine göre kullanıcıları filtreliyoruz
+    );
+
+    return users.length ? (
+        <>
+            <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: "20px" }}>
+                <Select 
+                    defaultValue="name" 
+                    style={{ width: 120, marginRight: 10 }} 
+                    onChange={(value) => setFilteredValue(value)}
+                >
+                    <Option value="name">Name</Option>
+                    <Option value="username"> Username </Option>
+                    <Option value="address"> Address </Option>
+                </Select>
+                
+                <Input 
+                    placeholder={`Search by ${filteredValue}`}
+                    value={searchData}
+                    onChange={(e) => setSearchData(e.target.value)}
+                    style={{ width: 200 }}
+                />
+            </div>
+            
+            <Table dataSource={filteredUsers} rowKey="id" style={{ marginLeft: "50px" }} bordered>
+                <Column title="Username" dataIndex="username" key="username" />
+                <Column title="First Name" dataIndex="name" key="name" />
+                <Column title="Last Name" dataIndex="surname" key="surname" />
+                <Column title="Email" dataIndex="email" key="email" />
+                <Column title="Address" dataIndex="address" key="address" />
+            
+                <Column
+                    title="Action"
+                    key="action"
+                    render={(_, user) => (
+                        <Space size="middle">
+                            <Button
+                                type="primary"
+                                onClick={() => navigate(`/admin/users/${user.id}`)}
+                            >
+                                See
+                            </Button>
+                        </Space>
+                    )}
+                />
+            </Table>
+        </>
+    ) : (
+        <div>Loading...</div>
+    );
+};
