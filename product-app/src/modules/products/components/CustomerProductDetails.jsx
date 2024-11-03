@@ -7,19 +7,20 @@ import { useGetProducts } from '../hooks/useGetProducts';
 import image1 from "../../../assets/1.jpg";
 import image2 from "../../../assets/2.jpg";
 import image3 from "../../../assets/3.webp";
+import { useCreateFavorite } from '../../favorites/hooks/useCreateFavorite';
 
-export const ProductDetails = () => {
+export const CustomerProductDetails = () => {
 
     const navigate = useNavigate();
     const {id} = useParams();
 
-    const deleteProduct = useDeleteProduct();
     const products = useGetProducts();
     
-    const [open, setOpen] = useState(false);
     const [width, setWidth] = useState(window.innerWidth);
 
     const selectedProduct = products.find(product => product.id == id);
+
+    const addToFavorites = useCreateFavorite();
 
     useEffect(() => {
       const handleResize = () => setWidth(window.innerWidth);
@@ -31,25 +32,18 @@ export const ProductDetails = () => {
   
     useEffect(()=>{
       if(id <= 0 || id > products.length ) 
-        navigate("/admin/products");
+        navigate("/products");
     },[])
 
-    const handleDelete = () => {
-      deleteProduct(id)
-      navigate("/admin/products");
+    const handleAdd = () => {
+        addToFavorites(selectedProduct);
+        navigate("/products/favorites");
     }
-
-    const showModal = () => {
-      setOpen(true);
-    };
-    const hideModal = () => {
-      setOpen(false);
-    };
 
     if(selectedProduct)
       return (
         <div style={{margin : "50px"}} >
-          <Button onClick={()=>navigate("/admin/products")}> Go Back </Button>
+          <Button onClick={()=>navigate("/products")}> Go Back </Button>
           <h1>ProductDetails</h1>
           {width > 900 && (
             <Carousel draggable={true} style={{width : "40%"}} arrows infinite={true}>
@@ -75,23 +69,8 @@ export const ProductDetails = () => {
             </>
           ) : <h2>{selectedProduct.price} $ </h2> }
           <div style={{display : "flex", gap : 20}} >
-            <Button type='primary' onClick={()=>navigate(`/admin/products/edit/${selectedProduct.id}`)} > Edit </Button>
-            <Button type='primary' danger onClick={showModal}> Delete </Button>
+            <Button type='primary' onClick={handleAdd} > Add To List </Button>
           </div>
-          <>
-            <Modal
-              title="Delete Product "
-              open={open}
-              onOk={handleDelete}
-              onCancel={hideModal}
-              okType='danger'
-              okText="Delete"
-              cancelText="Cancel"
-              closeIcon={false}
-            >
-              <p>Are you sure that you want to delete this product ? (It's category will be remain)</p>
-            </Modal>
-          </>
         </div>
       )
 }

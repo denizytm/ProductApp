@@ -4,8 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const { Header } = Layout;
 
-export const AdminHeaderComponent = () => {
-
+export const CustomerHeaderComponent = () => {
   const navigate = useNavigate();
 
   return (
@@ -22,7 +21,7 @@ export const AdminHeaderComponent = () => {
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={['1']}    
+        defaultSelectedKeys={['2']}    
         style={{
           flex: 1,
           minWidth: 0,

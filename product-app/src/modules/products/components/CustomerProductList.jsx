@@ -1,22 +1,46 @@
-import React from 'react';
-import { Button, Card, Col, Divider, Row, Space } from 'antd';
-import { useFetchProducts } from '../../modules/products/hooks/useFetchProducts';
-import { useGetProducts } from '../../modules/products/hooks/useGetProducts';
+import React, { useState } from 'react';
+import { Button, Card, Col, Divider, Row, Select, Space, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useGetProducts } from '../hooks/useGetProducts';
+import { useFetchProducts } from '../hooks/useFetchProducts';
 
-const Hello2 = () => {
+const { Option } = Select;
 
-    const fetchProducts = useFetchProducts();
-    fetchProducts();
+export const CustomerProductList = () => {
 
     const navigate = useNavigate();
 
+    const [searchData, setSearchData] = useState("");
+    const [filteredValue, setFilteredValue] = useState("name");
+
     const products = useGetProducts();
+
+    const filteredProducts = products.filter(product => 
+        product[filteredValue].toString().toLowerCase().includes(searchData.toLowerCase()) // filtered Value değerine göre product'ları filtreliyoruz
+    );
+
 
     return (
         <>
+            <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: "20px" }}>
+                <Select 
+                    defaultValue="name" 
+                    style={{ width: 120, marginRight: 10 }} 
+                    onChange={(value) => setFilteredValue(value)}
+                >
+                    <Option value="name">Name</Option>
+                    <Option value="category">Category</Option>
+                </Select>
+                
+                <Input 
+                    placeholder={`Search by ${filteredValue}`}
+                    value={searchData}
+                    onChange={(e) => setSearchData(e.target.value)}
+                    style={{ width: 200 }}
+                />
+            </div>
           <Row gutter={[16, 24]}> {/* 16px yatay, 24px dikey boşluk */}
-            {products.map(product => {
+            {filteredProducts.map(product => {
                 return (
                     <Col
                         span={6}
@@ -29,9 +53,10 @@ const Hello2 = () => {
                           title={product.name}
                           style={{
                             width : "70%",
-                            height : "300px"
+                            height : "100%"
                           }}
                         >
+                            <p style={{fontWeight : "bold"}} >{product.category}</p>
                             <p>{ product.text.length > 100 ? product.text.slice(0,100) + "..." : product.text }</p>
                             <Space style={{display : "flex", margin : "0"}} >
                                 <h4 style={product.discount ? {textDecoration : "line-through",margin : 0} : {} } >{ product.price }$</h4>
@@ -52,4 +77,3 @@ const Hello2 = () => {
     );
 }
 
-export default Hello2;

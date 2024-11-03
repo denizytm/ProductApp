@@ -7,17 +7,20 @@ import { createStoreHook } from "react-redux";
 // Components
 import User  from "./modules/users/User";
 import Product from "./modules/products/Product";
-import { ProductList } from "./modules/products/components/ProductList";
-import { AddProductForm } from "./modules/products/components/AddProductForm";
-import { ProductDetails } from "./modules/products/components/ProductDetails";
-import { EditProductForm } from "./modules/products/components/EditProductForm";
 import { UserList } from "./modules/users/components/UserList";
 import { AddUserForm } from "./modules/users/components/AddUserForm";
 import { UserDetails } from "./modules/users/components/UserDetails";
 import { EditUserForm } from "./modules/users/components/EditUserForm";
+import { ProductList } from "./modules/products/components/ProductList";
+import { AddProductForm } from "./modules/products/components/AddProductForm";
+import { ProductDetails } from "./modules/products/components/ProductDetails";
+import { EditProductForm } from "./modules/products/components/EditProductForm";
+import { CustomerProductList } from "./modules/products/components/CustomerProductList";
+import { CustomerProductDetails } from "./modules/products/components/CustomerProductDetails";
 
 // Page
 import { Admin } from "./pages/Admin";
+import { Customer } from "./pages/Customer";
 
 // Design
 import { customToken } from "./style/AppDesignConfig";
@@ -25,7 +28,7 @@ import "./App.css";
 
 import { Hello } from "./shared/components/Hello";
 import Hello2 from "./shared/components/Hello2";
-
+import { CustomerFavoriteProducts } from "./modules/products/components/CustomerFavoriteProducts";
 
 const App = () => {
 
@@ -43,7 +46,6 @@ const App = () => {
               <Route path="add" element={<AddUserForm />} /> {/* yeni bir kullanıcı ekleten route */}
               <Route path=":id" element={<UserDetails />} /> {/* id'si girilen kullanıcının detaylarını gösteren route */}
               <Route path="edit/:id" element={<EditUserForm />} /> {/* varolan bir kullanıcının bilgilerini güncelleyen route */}
-              <Route path="delete" element={<UserList />} /> {/* kullanıcıyı sistemden kaldıran route */}
             </Route>
 
             <Route path="products" element={<Product />} > {/* ürünleri yönetmek için oluşturulmuş Route */}
@@ -51,6 +53,19 @@ const App = () => {
               <Route path="add" element={<AddProductForm />} /> {/* yeni ürün ekleten route */}
               <Route path=":id" element={<ProductDetails />} /> {/* id'si girilen ürünün detaylarını gösteren route */}
               <Route path="edit/:id" element={<EditProductForm />} /> {/* varolan ürünü güncelleyen route */}
+            </Route>
+          </Route>
+
+          <Route path="/" element={<Customer />}>  {/* Admin için oluşturulmuş Route */}
+            <Route path="users" element={<User />} > {/* kullanıcıları yönetmek için oluşturulmuş Route */}
+              <Route path=":id" element={<UserDetails />} /> {/* id'si girilen kullanıcının detaylarını gösteren route */}
+              <Route path="edit/:id" element={<EditUserForm />} /> {/* varolan bir kullanıcının bilgilerini güncelleyen route */}
+            </Route>
+
+            <Route path="products" element={<Product />} > {/* ürünleri yönetmek için oluşturulmuş Route */}
+              <Route path="" element={<CustomerProductList />} /> {/* ürünlerin listesini dönen route */}
+              <Route path="favorites" element={<CustomerFavoriteProducts />} /> {/* ürünlerin listesini dönen route */}
+              <Route path=":id" element={<CustomerProductDetails />} /> {/* id'si girilen ürünün detaylarını gösteren route */}
             </Route>
           </Route>
 
