@@ -23,7 +23,7 @@ const productSlice = createSlice({
         // Synchronous actions if needed
         createProduct: (state,action) => {
             const newProduct = action.payload.newProduct;
-            state.products = [...state.products,newProduct]
+            state.products = [...state.products,{...newProduct,id : state.products.length + 1}]
             if(!state.categories.includes(newProduct.category))
                 state.categories = [...state.categories,newProduct.category];
         },
@@ -35,7 +35,7 @@ const productSlice = createSlice({
         updateProduct : (state,action) => {
             const updateProduct = action.payload.updateProduct;
             state.products = state.products.map(product => {
-                if(product.id === updateProduct.id) return updateProduct;
+                if(product.id == updateProduct.id) return updateProduct;
                 return product;
             })
             if(!state.categories.includes(updateProduct.category))

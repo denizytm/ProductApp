@@ -19,15 +19,13 @@ function getItem(label, key, icon, onClick, children) {
       icon,
       children,
       label,
-      onClick, // onClick eventini burada ekliyoruz
+      onClick, 
     };
 }
 
-export const AdminSidebarComponent = ({title}) => {
+export const AdminSidebarComponent = () => {
 
     const navigate = useNavigate();
-
-    const textTitle = title.charAt(0).toUpperCase() + title.slice(1,title.length - 1)
 
     const [collapsed, setCollapsed] = useState(false);
 
@@ -36,22 +34,21 @@ export const AdminSidebarComponent = ({title}) => {
       } = theme.useToken();
 
       const items = [
-        getItem('Option 1', '1', <PieChartOutlined />, () => navigate('/option1')),
+        getItem('Option 1', '1', null, () => navigate('/option1')),
         getItem('User', 'sub1', <UserOutlined />, null, [
           getItem('All Users', '3', null, () => navigate('/admin/users')),
           getItem('Create User', '4', null, () => navigate('/admin/users/add')),
         ]),
-        getItem('Product', 'sub2', <UserOutlined />, null, [
+        getItem('Product', 'sub2', <PieChartOutlined /> , null, [
           getItem('All Products', '5', null, () => navigate('/admin/products')),
           getItem('Create Product', '6', null, () => navigate('/admin/products/add')),
         ]),
     ];
 
     return (
-        <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+      <Sider style={{ minHeight : "100vh" }} collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div className="demo-logo-vertical" />
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
-    </Sider>
-     
+      </Sider>
     );
 }

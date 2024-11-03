@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
+
 import {
   Button,
   Form,
   Input,
   InputNumber,
   Select,
-  Segmented,
 } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
+
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEditProduct } from '../hooks/useEditProduct';
-
+import { useGetProducts } from '../hooks/useGetProducts';
+import { useGetCategories } from '../hooks/useGetCategories';
 
 const { Option } = Select;
 
@@ -21,18 +22,19 @@ export const EditProductForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const products = useSelector(state => state.products.products);
-  const categories = useSelector(state => state.products.categories);
+  const products = useGetProducts();
+  const categories = useGetCategories();
 
-  if (id <= 0 || id > products.length - 1) navigate("/admin/products");
+  if (id <= 0 || id > products.length ) navigate("/admin/products");
 
-  const selectedProduct = products[id - 1];
+  const selectedProduct = products.find(product => product.id == id);
 
   const [formData, setFormData] = useState({
     id: id,
     name: "",
     price: "",
     text: "",
+    amount : "",
     category: "",
     discount: "",
     discountPer: "",
@@ -46,6 +48,7 @@ export const EditProductForm = () => {
         name: selectedProduct.name,
         price: selectedProduct.price,
         text: selectedProduct.text,
+        amount : selectedProduct.amount,
         category: selectedProduct.category,
         discount: selectedProduct.discount,
         discountPer: selectedProduct.discountPer,
@@ -86,6 +89,17 @@ export const EditProductForm = () => {
         <InputNumber
           style={{ width: '100%' }}
           onChange={(value) => setFormData({ ...formData, price: value })}
+        />
+      </Form.Item>
+
+      <Form.Item
+        label="Amount"
+        name="amount"
+        rules={[{ required: true, message: 'Please enter an amount for the product' }]}
+      >
+        <InputNumber
+          style={{ width: '100%' }}
+          onChange={(value) => setFormData({ ...formData, amount : value })}
         />
       </Form.Item>
 
@@ -134,10 +148,10 @@ export const EditProductForm = () => {
         <Select
           onChange={(value) => setFormData({ ...formData, category: value })}
         >
+          <Option value="Other">Other</Option>
           {categories.map(category => (
             <Option key={category} value={category}>{category}</Option>
           ))}
-          <Option value="Other">Other</Option>
         </Select>
       </Form.Item>
 

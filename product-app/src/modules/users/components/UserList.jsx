@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
+import { useGetUsers } from '../hooks/useGetUsers'
+import { useNavigate } from 'react-router-dom';
 
 export const UserList = () => {
     
-    const users = useSelector(state=>state.users.users)
+    const users = useGetUsers();
     
+    const navigate = useNavigate();
+
+    const handleClick = (id) => {
+        navigate(`/admin/users/edit/${id}`);
+    }
+
     if(users.length)
     return (
       <div>
@@ -12,7 +19,10 @@ export const UserList = () => {
             {users.map(user=>(
                 <li>
                     <p>
-                        {user.name}
+                        {user.nickname}
+                        <button onClick={()=>{
+                            handleClick(user.id);
+                        }}  > See Details </button>
                     </p>
                 </li>
             ))}

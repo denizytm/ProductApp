@@ -10,6 +10,8 @@ import { UserList } from "./modules/users/components/UserList";
 import { ProductList } from "./modules/products/components/ProductList";
 import { AddProductForm } from "./modules/products/components/AddProductForm";
 import { EditProductForm } from "./modules/products/components/EditProductForm";
+import { UserDetails } from "./modules/users/components/UserDetails";
+import { AddUserForm } from "./modules/users/components/AddUserForm";
 
 // Sayfalar
 import { Admin } from "./pages/Admin";
@@ -18,6 +20,7 @@ import { Admin } from "./pages/Admin";
 import { customToken } from "./style/AppDesignConfig";
 import { ProductDetails } from "./modules/products/components/ProductDetails";
 import Hello from "./shared/components/Hello";
+import Hello2 from "./shared/components/Hello2";
 
 const App = () => {
 
@@ -32,8 +35,9 @@ const App = () => {
 
             <Route path="users" element={<User />} > {/* kullanıcıları yönetmek için oluşturulmuş Route */}
               <Route path="" element={<UserList />} /> {/* kullanıcıları liste halinde döndüren route */}
-              <Route path="add" element={<UserList />} /> {/* yeni bir kullanıcı ekleten route */}
-              <Route path="edit" element={<UserList />} /> {/* varolan bir kullanıcının bilgilerini güncelleyen route */}
+              <Route path="add" element={<AddUserForm />} /> {/* yeni bir kullanıcı ekleten route */}
+              <Route path=":id" element={<UserDetails />} /> {/* id'si girilen ürünün detaylarını gösteren route */}
+              <Route path="edit/:id" element={<UserDetails />} /> {/* varolan bir kullanıcının bilgilerini güncelleyen route */}
               <Route path="delete" element={<UserList />} /> {/* kullanıcıyı sistemden kaldıran route */}
             </Route>
 
@@ -45,7 +49,8 @@ const App = () => {
             </Route>
           </Route>
 
-          <Route path="/" element={<Hello />} />
+          <Route path="/1" element={<Hello />} />
+          <Route path="/2" element={<Hello2 />} />
 
         </Routes>
       </BrowserRouter>

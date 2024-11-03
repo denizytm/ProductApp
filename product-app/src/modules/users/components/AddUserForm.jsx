@@ -5,14 +5,8 @@ import {
   Input,
   InputNumber,
   Segmented,
-  Select,
 } from 'antd';
-
-import { useCreateProduct } from '../hooks/useCreateProduct';
-import { useNavigate } from 'react-router-dom';
-import { useGetCategories } from '../hooks/useGetCategories';
-
-const { Option } = Select;
+import useCreateUser from '../hooks/useCreateUsers';
 
 const formItemLayout = {
   labelCol: {
@@ -33,37 +27,27 @@ const formItemLayout = {
   },
 };
 
-export const AddProductForm = () => {
+export const AddUserForm = () => {
 
-    const createProduct = useCreateProduct();
-    const navigate = useNavigate();
-
-    const categories = useGetCategories();
+    const create = useCreateUser();
 
     const [componentVariant, setComponentVariant] = useState('filled');
+    const onFormVariantChange = ({ variant }) => {
+      setComponentVariant(variant);
+    };
+    
     const [formData,setFormData] = useState({
         name : "",
         price : "",
         text : "",
         category : "",
         discount : false,
-        discountPer : 0,
-        amount : 0,
-        newCategory : ""
+        discountPer : 0
     });
 
-    const onFormVariantChange = ({ variant }) => {
-      setComponentVariant(variant);
-    };
-    
-
     const handleSubmit = () => {
-        if(Object.values(formData).every(value => value !== "" && value !== null)) {  // Form verisinde girilenden boş olan var mı diye bakıyoruz
-          if(formData.category === "Other")
-            createProduct({...formData,category : formData.newCategory}) // eğer boş olan bir input değeri yoksa dispatch aracılığıyla ürünü state.procuts'a ekliyoruz
-          else createProduct(formData)
-          navigate("/admin/products");
-        }
+        if(Object.values(formData).every(value => value !== "" && value !== null)) // Form verisinde girilenden boş olan var mı diye bakıyoruz
+          create(formData) // eğer boş olan bir input değeri yoksa dispatch aracılığıyla ürünü state.procuts'a ekliyoruz
         else alert("There are empty inputs") // eğer boş olan bir veri varsa ürünü eklemeyip kullanıcıyı uyaracaktır
     }
 
@@ -100,37 +84,20 @@ export const AddProductForm = () => {
           </Form.Item>
     
           <Form.Item
-           label="Category"
-           name="category"
-           rules={[{ required: true, message: 'Please enter a new category' }]}
+            label="Category"
+            name="category"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter a category for the product',
+              },
+            ]}
           >
-            <Select
-              onChange={(value) => setFormData({ ...formData, category: value })}
-            >
-              <Option value="Other">Other</Option>
-              {categories.map(category => (
-                <Option key={category} value={category}>{category}</Option>
-              ))}
-            </Select>
+            <Input
+              value={formData.category}
+              onChange={(e)=>setFormData(oV=>({...oV,category : e.target.value}))}
+            />
           </Form.Item>
-
-          {formData.category === "Other" && (
-            <Form.Item
-              label="Category"
-              name="newCategory"
-              rules={[
-                {
-                  required: true,
-                  message: 'Please enter a new category',
-                },
-              ]}
-            >
-              <Input
-               value={formData.newCategory}
-               onChange={(e) => setFormData(oV=> ({...oV,newCategory : e.target.value}))} 
-              />
-            </Form.Item>
-          )}
 
           <Form.Item
             label="Price"
@@ -151,25 +118,6 @@ export const AddProductForm = () => {
             />
           </Form.Item>
     
-          <Form.Item
-            label="Amount"
-            name="amount"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter an amount for the product',
-              },
-            ]}
-          >
-            <InputNumber
-              value={formData.amount}
-              onChange={(e)=>setFormData(oV=>({...oV,amount : e}))}
-              style={{
-                width: '100%',
-              }}
-            />
-          </Form.Item>
-
           <Form.Item
             label="Explanation"
             name="text"

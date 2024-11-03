@@ -1,11 +1,11 @@
 import { useDispatch } from 'react-redux'
 import { createProduct } from '../store/productSlice';
 
-export const useCreateProduct = (data) => {
+export const useCreateProduct = () => {
 
     const dispatch = useDispatch();
 
-    const createNewProduct = () => {
+    const createNewProduct = (data) => {
         dispatch(createProduct({newProduct : data}))
     }
 

@@ -1,26 +1,29 @@
-import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, Modal } from 'antd';
-import { deleteProduct } from '../store/productSlice';
+import { useDeleteProduct } from '../hooks/useDeleteProduct';
+import { useGetProducts } from '../hooks/useGetProducts';
 
 export const ProductDetails = () => {
 
-    const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const {id} = useParams();
 
-    const products = useSelector(state=>state.products.products);
+    const deleteProduct = useDeleteProduct();
+
+    const products = useGetProducts();
     
-    if(id <= 0 || id > products.length -1) navigate("/admin/products");
-
-    const selectedProduct = products[id-1];
-
     const [open, setOpen] = useState(false);
 
+    useEffect(()=>{
+      if(id <= 0 || id > products.length ) 
+        navigate("/admin/products");
+    },[])
+
+    const selectedProduct = products.find(product => product.id == id);
+
     const handleDelete = () => {
-      dispatch(deleteProduct({ deleteProductId : id }))
+      deleteProduct(id)
       navigate("/admin/products");
     }
 
@@ -38,7 +41,7 @@ export const ProductDetails = () => {
           <h2>{selectedProduct.name}</h2>
           <p>{selectedProduct.text}</p>
           <p>{selectedProduct.category}</p>
-          {selectedProduct.discount ? (
+          {selectedProduct.discount ? (  /* eğer ürününün indirimi varsa indirimli fiyatı gözüküp orjinal fiyatının üzeri çizili olacaktır. */
             <>
               Discounted !
               <p style={{textDecoration : "line-through"}} >{selectedProduct.price} $ </p>

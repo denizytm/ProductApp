@@ -28,7 +28,7 @@ export const Admin = () => {
     <Layout>
       <AdminHeaderComponent {...{items1}} />
       <Layout>
-        <AdminSidebarComponent {...{title : "naber"}} />
+        <AdminSidebarComponent />
         <Layout
          style={{
           padding: '0 24px 24px',

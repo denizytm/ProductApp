@@ -20,9 +20,6 @@ const userSlice = createSlice({
     initialState : userInitialState,
     reducers: {
         // Synchronous actions if needed
-        getUsers: (state) => {
-            return state.users;
-        },
         createUser: (state,action) => {
             const newUser = action.payload.newUser;
             state.users = [...state.users,newUser]
@@ -60,7 +57,6 @@ const userSlice = createSlice({
 });
 
 export const { 
-    getUsers,
     createUser,
     createUsers,
     updateUser,

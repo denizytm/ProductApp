@@ -26,6 +26,7 @@ export const HeaderComponent = () => {
             flex: 1,
             minWidth: 0,
           }}
+          defaultSelectedKeys={1}
         >
           <Menu.Item onClick={()=>navigate("/admin/users")}  key="1">Users</Menu.Item>
           <Menu.Item onClick={()=>navigate("/admin/products")} key="2">Products</Menu.Item>
