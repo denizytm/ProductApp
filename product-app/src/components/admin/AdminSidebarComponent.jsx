@@ -1,54 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu, Layout, theme } from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
-
-import {
-    DesktopOutlined,
-    FileOutlined,
-    PieChartOutlined,
-    TeamOutlined,
-    UserOutlined,
-  } from '@ant-design/icons';
+import { UserOutlined, PieChartOutlined } from '@ant-design/icons';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const { Sider } = Layout;
 
-function getItem(label, key, icon, onClick, children) {
+function getItem(label, key, icon, onClick, children, address) {
     return {
-      key,
-      icon,
-      children,
-      label,
-      onClick, 
+        key,
+        icon,
+        children,
+        label,
+        onClick, 
+        address
     };
 }
 
 export const AdminSidebarComponent = () => {
-
     const navigate = useNavigate();
-
+    const location = useLocation();
+    
     const [collapsed, setCollapsed] = useState(false);
+    const [selectedAddress, setSelectedAddress] = useState("");
 
     const {
         token: { colorBgContainer, borderRadiusLG },
-      } = theme.useToken();
+    } = theme.useToken();
 
-      const items = [
-        getItem('Option 1', '1', null, () => navigate('/option1')),
+    const items = [
         getItem('User', 'sub1', <UserOutlined />, null, [
-          getItem('All Users', '3', null, () => navigate('/admin/users')),
-          getItem('Create User', '4', null, () => navigate('/admin/users/add')),
+            getItem('All Users', '1', null, () => navigate('/admin/users'), null, '/admin/users'),
+            getItem('Create User', '2', null, () => navigate('/admin/users/add'), null, '/admin/users/add'),
         ]),
-        getItem('Product', 'sub2', <PieChartOutlined /> , null, [
-          getItem('All Products', '5', null, () => navigate('/admin/products')),
-          getItem('Create Product', '6', null, () => navigate('/admin/products/add')),
+        getItem('Product', 'sub2', <PieChartOutlined />, null, [
+            getItem('All Products', '3', null, () => navigate('/admin/products'), null, '/admin/products'),
+            getItem('Create Product', '4', null, () => navigate('/admin/products/add'), null, '/admin/products/add'),
         ]),
     ];
 
+    useEffect(() => {
+        const matchingItem = items.flatMap(item => item.children || [item]).find(subItem => subItem.address === location.pathname);
+        if (matchingItem) {
+            setSelectedAddress(matchingItem.key); // bulunan adrese göre selectedAddress seçiyoruz 
+        }
+    }, [location.pathname]);
+
     return (
-      <Sider style={{ minHeight : "100vh" }} collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <div className="demo-logo-vertical" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+      <Sider 
+        style={{ minHeight: "100vh", position: "fixed", top: "64px", zIndex: "5" }} 
+        collapsible 
+        collapsed={collapsed} 
+        onCollapse={(value) => setCollapsed(value)}>
+        <Menu 
+          theme="dark" 
+          selectedKeys={[selectedAddress]} 
+          mode="inline" 
+          items={items} 
+        />
       </Sider>
     );
-}
+};

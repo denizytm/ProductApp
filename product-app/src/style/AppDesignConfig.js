@@ -9,6 +9,4 @@ export const customToken = {
   colorLink: '#1DA57A', // Özel link rengi
   colorText: '#000000', // Temel metin rengi
   colorTextSecondary: '#555555', // İkincil metin rengi
-
-
 };

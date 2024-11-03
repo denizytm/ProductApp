@@ -15,7 +15,8 @@ export const HeaderComponent = () => {
           alignItems: 'center',
           height : '50px',
           color : 'white',
-          paddingLeft : 20
+          paddingLeft : 20,
+   
         }} 
       >
         <h1 style={{marginRight : 20}} >Product App</h1>

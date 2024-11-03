@@ -39,7 +39,7 @@ export const UserList = () => {
                 />
             </div>
             
-            <Table dataSource={filteredUsers} rowKey="id" style={{ marginLeft: "50px" }} bordered>
+            <Table dataSource={filteredUsers} rowKey="id" style={{ marginLeft: "50px", overflowX : "auto" }} bordered>
                 <Column title="Username" dataIndex="username" key="username" />
                 <Column title="First Name" dataIndex="name" key="name" />
                 <Column title="Last Name" dataIndex="surname" key="surname" />

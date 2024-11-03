@@ -8,30 +8,26 @@ import { ContentComponent } from '../components/global/ContentComponent';
 
 const { Header, Content, Sider } = Layout;
 
-const items1 = ['Admin', 'User'].map((key) => ({
-  key,
+const items1 = ['Admin', 'User'].map((key,value) => ({
+  key : value + 1,
   label: `${key}`,
 }));
 
 export const Admin = () => {
-
-  const navigate = useNavigate();
-
-  const path = useLocation();
-  const title = path.pathname.split("/")[2];
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
   return (
-    <Layout>
+    <Layout  >
       <AdminHeaderComponent {...{items1}} />
       <Layout>
         <AdminSidebarComponent />
         <Layout
          style={{
-          padding: '0 24px 24px',
+          padding : "25px",
+          paddingLeft: '300px',
          }}
         >
           <BreadCrumbComponent />
@@ -42,6 +38,7 @@ export const Admin = () => {
            minHeight: 280,
            background: colorBgContainer,
            borderRadius: borderRadiusLG,
+
           }}
           >
             <Outlet />

@@ -2,6 +2,7 @@
 // Packages
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { ConfigProvider } from "antd"
+import { createStoreHook } from "react-redux";
 
 // Components
 import User  from "./modules/users/User";
@@ -20,9 +21,11 @@ import { Admin } from "./pages/Admin";
 
 // Design
 import { customToken } from "./style/AppDesignConfig";
+import "./App.css";
 
 import { Hello } from "./shared/components/Hello";
 import Hello2 from "./shared/components/Hello2";
+
 
 const App = () => {
 

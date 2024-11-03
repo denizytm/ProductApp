@@ -19,7 +19,7 @@ export const ProductList = () => {
     );
 
     return products.length ? (
-        <>
+        <div>
             <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: "20px" }}>
                 <Select 
                     defaultValue="name" 
@@ -38,7 +38,7 @@ export const ProductList = () => {
                 />
             </div>
             
-            <Table dataSource={filteredProducts} rowKey="id" style={{ marginLeft: "50px" }} bordered>
+            <Table dataSource={filteredProducts} rowKey="id" style={{ marginLeft: "25px",overflowX : "auto" }} bordered>
                 <Column title="Amount" dataIndex="amount" key="amount" />
                 <Column title="Name" dataIndex="name" key="name" />
                 <Column title="Category" dataIndex="category" key="category" />
@@ -87,7 +87,7 @@ export const ProductList = () => {
                     )}
                 />
             </Table>
-        </>
+        </div>
     ) : (
         <div>Loading...</div>
     );
