@@ -68,7 +68,7 @@ export const ProductList = () => {
                     title="Discounted Price"
                     key="discountedPrice"
                     render={(text, product) => (
-                        product.discount ? ((product.discountPer * product.price) / 100).toFixed(2) : ""
+                        product.discount ? ( product.price * ( 100 - product.discountPer) / 100).toFixed(2) : ""
                     )}
                 />
             

@@ -1,0 +1,29 @@
+/* Ana bileşeninize özel bir CSS dosyasında ya da style etiketi ile ekleyebilirsiniz */
+.slick-prev, .slick-next {
+    color: red;            /* Okların rengini beyaz yapın */
+    font-size: 24px;        /* Okların boyutunu arttırın */
+    background-color: #333; /* Arka plan rengini değiştirin */
+    border-radius: 50%;     /* Yuvarlak görünüm verin */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;           /* Hafif saydamlık */
+    transition: opacity 0.3s;
+}
+
+.slick-prev:hover, .slick-next:hover {
+    opacity: 1;             /* Hover durumunda opaklığı arttırın */
+}
+
+/* Ok butonlarının pozisyonlarını ayarlayın */
+.slick-prev {
+    left: -20px;
+    background-color: red;
+    color: red;
+}
+
+.slick-next {
+    right: -20px;
+}

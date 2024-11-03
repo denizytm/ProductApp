@@ -6,6 +6,7 @@ import {
   InputNumber,
   Segmented,
   Select,
+  Space,
 } from 'antd';
 
 import { useCreateProduct } from '../hooks/useCreateProduct';
@@ -49,8 +50,8 @@ export const AddProductForm = () => {
         discount : false,
         discountPer : 0,
         amount : 0,
-        newCategory : ""
     });
+    const [newCategory,setNewCategory] = useState("");
 
     const onFormVariantChange = ({ variant }) => {
       setComponentVariant(variant);
@@ -60,7 +61,7 @@ export const AddProductForm = () => {
     const handleSubmit = () => {
         if(Object.values(formData).every(value => value !== "" && value !== null)) {  // Form verisinde girilenden boş olan var mı diye bakıyoruz
           if(formData.category === "Other")
-            createProduct({...formData,category : formData.newCategory}) // eğer boş olan bir input değeri yoksa dispatch aracılığıyla ürünü state.procuts'a ekliyoruz
+            createProduct({...formData,category : newCategory}) // eğer boş olan bir input değeri yoksa dispatch aracılığıyla ürünü state.procuts'a ekliyoruz
           else createProduct(formData)
           navigate("/admin/products");
         }
@@ -126,8 +127,8 @@ export const AddProductForm = () => {
               ]}
             >
               <Input
-               value={formData.newCategory}
-               onChange={(e) => setFormData(oV=> ({...oV,newCategory : e.target.value}))} 
+               value={newCategory}
+               onChange={(e) => setNewCategory(e.target.value)} 
               />
             </Form.Item>
           )}
@@ -191,9 +192,14 @@ export const AddProductForm = () => {
               span: 16,
             }}
           >
-            <Button onClick={handleSubmit} type="primary" htmlType="submit">
-              Submit
-            </Button>
+            <Space>
+              <Button onClick={handleSubmit} type="primary" htmlType="submit">
+                Submit
+              </Button>
+              <Button onClick={()=>navigate("/admin/products")} htmlType="submit">
+                Cancel
+              </Button>
+            </Space>
           </Form.Item>
         </Form>
       );

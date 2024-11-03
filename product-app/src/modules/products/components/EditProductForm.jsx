@@ -6,6 +6,7 @@ import {
   Input,
   InputNumber,
   Select,
+  Space,
 } from 'antd';
 
 import { useNavigate, useParams } from 'react-router-dom';
@@ -174,9 +175,14 @@ export const EditProductForm = () => {
       )}
 
       <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
+        <Space>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+          <Button onClick={()=>navigate(`/admin/products/${selectedProduct.id}`)} htmlType="submit">
+            Cancel
+          </Button>
+        </Space>
       </Form.Item>
     </Form>
   );
