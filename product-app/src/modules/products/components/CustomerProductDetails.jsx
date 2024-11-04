@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Button, Modal, Carousel } from 'antd';
-import { useDeleteProduct } from '../hooks/useDeleteProduct';
+import { Button, Carousel } from 'antd';
 import { useGetProducts } from '../hooks/useGetProducts';
 
 import image1 from "../../../assets/1.jpg";
 import image2 from "../../../assets/2.jpg";
 import image3 from "../../../assets/3.webp";
 import { useCreateFavorite } from '../../favorites/hooks/useCreateFavorite';
+import { useGetFavorites } from '../../favorites/hooks/useGetFavorites';
+import { useDeleteFavorite } from '../../favorites/hooks/useDeleteFavorite';
 
 export const CustomerProductDetails = () => {
 
@@ -15,12 +16,14 @@ export const CustomerProductDetails = () => {
     const {id} = useParams();
 
     const products = useGetProducts();
+    const favorites = useGetFavorites();
     
     const [width, setWidth] = useState(window.innerWidth);
 
     const selectedProduct = products.find(product => product.id == id);
 
     const addToFavorites = useCreateFavorite();
+    const deleteFavorite = useDeleteFavorite();
 
     useEffect(() => {
       const handleResize = () => setWidth(window.innerWidth);
@@ -36,8 +39,13 @@ export const CustomerProductDetails = () => {
     },[])
 
     const handleAdd = () => {
-        addToFavorites(selectedProduct);
-        navigate("/products/favorites");
+      addToFavorites(selectedProduct);
+      navigate("/products/favorites");
+    }
+
+    const handleRemove = () => {
+      deleteFavorite(selectedProduct.id);
+      navigate("/products/favorites");
     }
 
     if(selectedProduct)
@@ -69,7 +77,13 @@ export const CustomerProductDetails = () => {
             </>
           ) : <h2>{selectedProduct.price} $ </h2> }
           <div style={{display : "flex", gap : 20}} >
-            <Button type='primary' onClick={handleAdd} > Add To List </Button>
+            {favorites.find(favorite => favorite.id == selectedProduct.id) ? (
+              <Button type='primary' onClick={handleRemove} > Remove From Favorites </Button>
+              ) : 
+              (
+                <Button type='primary' onClick={handleAdd} > Add To Favorites </Button>
+              )
+            }
           </div>
         </div>
       )

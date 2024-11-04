@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Card, Col, Divider, Row, Select, Space, Input } from 'antd';
+import { Button, Card, Col, Input, Row, Select, Space } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useGetProducts } from '../hooks/useGetProducts';
-import { useFetchProducts } from '../hooks/useFetchProducts';
 
 const { Option } = Select;
 
@@ -16,9 +15,8 @@ export const CustomerProductList = () => {
     const products = useGetProducts();
 
     const filteredProducts = products.filter(product => 
-        product[filteredValue].toString().toLowerCase().includes(searchData.toLowerCase()) // filtered Value değerine göre product'ları filtreliyoruz
+        product[filteredValue].toString().toLowerCase().includes(searchData.toLowerCase()) 
     );
-
 
     return (
         <>
@@ -39,41 +37,50 @@ export const CustomerProductList = () => {
                     style={{ width: 200 }}
                 />
             </div>
-          <Row gutter={[16, 24]}> {/* 16px yatay, 24px dikey boşluk */}
-            {filteredProducts.map(product => {
-                return (
-                    <Col
-                        span={6}
-                        xs={{ order: 1 }}
-                        sm={{ order: 2 }}
-                        md={{ order: 3 }}
-                        lg={{ order: 4 }}
-                    >
-                        <Card
-                          title={product.name}
-                          style={{
-                            width : "70%",
-                            height : "100%"
-                          }}
-                        >
-                            <p style={{fontWeight : "bold"}} >{product.category}</p>
-                            <p>{ product.text.length > 100 ? product.text.slice(0,100) + "..." : product.text }</p>
-                            <Space style={{display : "flex", margin : "0"}} >
-                                <h4 style={product.discount ? {textDecoration : "line-through",margin : 0} : {} } >{ product.price }$</h4>
-                                <h2 style={{fontWeight : "bold", margin : 0}} >{ product.discount ? product.discountPer + "% Discount" : "" }</h2>
-                            </Space>
-                            {product.discount && (
-                                <h1 style={{margin : 0}} >{product.price * (100 - product.discountPer) / 100}$</h1>
-                            ) }
-                            <Space>
-                                <Button onClick={()=>navigate(`/products/${product.id}`)}  >See Details</Button>
-                            </Space>
-                        </Card>
-                    </Col>
-                )
-            })}
-          </Row>
+            <Row gutter={[16, 24]}>
+              {filteredProducts.map(product => (
+                  <Col
+                      xs={24}     
+                      sm={18}     
+                      md={12}     
+                      lg={6}      
+                      key={product.id}
+                  >
+                      <Card
+                        title={product.name}
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'space-between'
+                        }}
+                        actions={[
+                            <Button onClick={() => navigate(`/products/${product.id}`)}>See Details</Button>
+                        ]}
+                      >
+                          <div style={{ height: 180, overflowY: "auto" }}>
+                              <p style={{ fontWeight: "bold" }}>{product.category}</p>
+                              <p>{product.text.length > 100 ? product.text.slice(0, 100) + "..." : product.text}</p>
+                          </div>
+                          
+                          <div>
+                              <Space style={{ display: "flex", justifyContent: "space-between", margin: "0" }}>
+                                  {product.discount ? 
+                                      (<h4 style={{ textDecoration: "line-through", margin: 0 }}>{product.price}$</h4>)
+                                          : 
+                                      (<h1 style={{ margin: 0 }}>{product.price}$</h1>) 
+                                  }
+                                  <h2 style={{ fontWeight: "bold", margin: 0 }}>{product.discount ? product.discountPer + "% Discount" : ""}</h2>
+                              </Space>
+                              {product.discount && (
+                                  <h1 style={{ margin: 0, textAlign: 'right' }}> {product.price * (100 - product.discountPer) / 100}$</h1>
+                              )}
+                          </div>
+                      </Card>
+                  </Col>
+              ))}
+            </Row>
         </>
     );
 }
-

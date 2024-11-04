@@ -22,7 +22,7 @@ const userSlice = createSlice({
         // Synchronous actions if needed
         createUser: (state,action) => {
             const newUser = action.payload.newUser;
-            state.users = [...state.users,newUser]
+            state.users = [...state.users, {...newUser, id : state.users.length + 1}]
         },
         createUsers: (state,action) => {
             action.payload.users.forEach(user=>{    

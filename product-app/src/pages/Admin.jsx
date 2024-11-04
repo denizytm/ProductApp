@@ -1,10 +1,9 @@
 import React from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { Layout, Menu, theme } from 'antd'
-import { AdminHeaderComponent } from '../components/admin/AdminHeaderComponent';
-import { AdminSidebarComponent } from '../components/admin/AdminSidebarComponent';
-import { BreadCrumbComponent } from '../components/global/BreadCrumbComponent';
-import { ContentComponent } from '../components/global/ContentComponent';
+import { Outlet } from 'react-router-dom'
+import { Layout, theme } from 'antd'
+import { AdminHeaderComponent } from "../shared/admin/AdminHeaderComponent"
+import { AdminSidebarComponent } from "../shared/admin/AdminSidebarComponent"
+import { BreadCrumbComponent } from "../shared/BreadCrumbComponent";
 
 const { Header, Content, Sider } = Layout;
 
@@ -38,7 +37,6 @@ export const Admin = () => {
            minHeight: 280,
            background: colorBgContainer,
            borderRadius: borderRadiusLG,
-
           }}
           >
             <Outlet />

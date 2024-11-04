@@ -1,148 +1,106 @@
-import React, { useState } from 'react';
-import {
-  Button,
-  Form,
-  Input,
-  InputNumber,
-  Segmented,
-} from 'antd';
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Button, Card, Col, Divider, Form, Input, Space } from 'antd';
+import { useGetUsers } from '../hooks/useGetUsers';
 import useCreateUser from '../hooks/useCreateUsers';
-
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 6,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 14,
-    },
-  },
-};
 
 export const AddUserForm = () => {
 
-    const create = useCreateUser();
+    const navigate = useNavigate();
 
-    const [componentVariant, setComponentVariant] = useState('filled');
-    const onFormVariantChange = ({ variant }) => {
-      setComponentVariant(variant);
-    };
-    
+    const users = useGetUsers();
+    const createUser = useCreateUser();
+
     const [formData,setFormData] = useState({
+        username : "",
         name : "",
-        price : "",
-        text : "",
-        category : "",
-        discount : false,
-        discountPer : 0
-    });
+        surname : "",
+        email : "",
+        address : ""
+    }); 
 
-    const handleSubmit = () => {
-        if(Object.values(formData).every(value => value !== "" && value !== null)) // Form verisinde girilenden boş olan var mı diye bakıyoruz
-          create(formData) // eğer boş olan bir input değeri yoksa dispatch aracılığıyla ürünü state.procuts'a ekliyoruz
-        else alert("There are empty inputs") // eğer boş olan bir veri varsa ürünü eklemeyip kullanıcıyı uyaracaktır
+    const handleFinish = () => {
+        if(Object.values(formData).every(value => value != "" && value != null)){
+            createUser(formData);
+            navigate("/admin/users");
+        }
     }
-
+    
     return (
-        <Form
-          {...formItemLayout}
-          onValuesChange={onFormVariantChange}
-          variant={componentVariant}
-          style={{
-            maxWidth: 600,
-          }}
-          initialValues={{
-            variant: componentVariant,
-          }}
-        >
-          <Form.Item label="Form variant" name="variant">
-            <Segmented options={['outlined', 'filled', 'borderless']} />
-          </Form.Item>
-    
-          <Form.Item
-            label="Name"
-            name="name"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter a name for the product',
-              },
-            ]}
-          >
-            <Input
-              value={formData.name}
-              onChange={(e)=>setFormData(oV=>({...oV,name : e.target.value}))}
-            />
-          </Form.Item>
-    
-          <Form.Item
-            label="Category"
-            name="category"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter a category for the product',
-              },
-            ]}
-          >
-            <Input
-              value={formData.category}
-              onChange={(e)=>setFormData(oV=>({...oV,category : e.target.value}))}
-            />
-          </Form.Item>
+        <Divider style={{margin : "50px"}} >
+            <h1 style={{textAlign : "center"}} >New User</h1>
+            <Card title={"Create User"} style={{ width: 400, margin: '20px auto' }}>
+                <Form
+                    layout="vertical"
+                    onFinish={handleFinish}
+                    initialValues={formData} 
+                >
+                    <Form.Item
+                        name="username"
+                        label="Username"
+                        rules={[{ required: true, message: 'Please enter your username' }]}
+                    >
+                        <Input
+                            defaultValue={formData.username} 
+                            value={formData.username} 
+                            onChange={(e)=>setFormData(oV => ({...oV,username : e.target.value}))}
+                        />
+                    </Form.Item>
 
-          <Form.Item
-            label="Price"
-            name="price"
-            rules={[
-              {
-                required: true,
-                message: 'Please enter a price for the product',
-              },
-            ]}
-          >
-            <InputNumber
-              value={formData.price}
-              onChange={(e)=>setFormData(oV=>({...oV,price : e}))}
-              style={{
-                width: '100%',
-              }}
-            />
-          </Form.Item>
-    
-          <Form.Item
-            label="Explanation"
-            name="text"
-            value={formData.text}
-                onChange={(e)=>setFormData(oV=>({...oV,text : e.target.value}))}
-            rules={[
-              {
-                required: true,
-                message: 'Please enter an explanation for the product',
-              },
-            ]}
-          >
-            <Input.TextArea />
-          </Form.Item>
+                    <Form.Item
+                        name="name"
+                        label="Name"
+                        rules={[{ required: true, message: 'Please enter your name' }]}
+                    >
+                        <Input
+                            defaultValue={formData.name} 
+                            value={formData.name} 
+                            onChange={(e)=>setFormData(oV => ({...oV,name : e.target.value}))}
+                        />
+                    </Form.Item>
 
-          <Form.Item
-            wrapperCol={{
-              offset: 6,
-              span: 16,
-            }}
-          >
-            <Button onClick={handleSubmit} type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      );
+                    <Form.Item
+                        name="surname"
+                        label="Surname"
+                        rules={[{ required: true, message: 'Please enter your surname' }]}
+                    >
+                        <Input
+                            defaultValue={formData.surname} 
+                            value={formData.surname} 
+                            onChange={(e)=>setFormData(oV => ({...oV,surname : e.target.value}))}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="address"
+                        label="Address"
+                        rules={[{ required: true, message: 'Please enter your address' }]}
+                    >
+                        <Input
+                            defaultValue={formData.address} 
+                            value={formData.address} 
+                            onChange={(e)=>setFormData(oV => ({...oV,address : e.target.value}))}
+                        />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="email"
+                        label="Email"
+                        rules={[{ required: true, type: 'email', message: 'Please enter a valid email' }]}
+                    >
+                        <Input
+                            defaultValue={formData.email} 
+                            value={formData.email} 
+                            onChange={(e)=>setFormData(oV => ({...oV,email : e.target.value}))} 
+                        />
+                    </Form.Item>
+
+                    <Space style={{ display: 'flex', gap: 20 }}>
+                        <Button type="primary" htmlType="submit">Update</Button>
+                        <Button onClick={() => navigate(`/admin/users`)}>Cancel</Button>
+                    </Space>
+                </Form>
+            </Card>
+        </Divider>
+    )
 }

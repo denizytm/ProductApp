@@ -4,8 +4,8 @@ import { createUser } from '../store/userSlice';
 const useCreateUser = () => {
     const dispatch = useDispatch();
 
-    const createUserF = () => {
-        dispatch(createUser());
+    const createUserF = (data) => {
+        dispatch(createUser({newUser : data}));
     }
 
     return createUserF;

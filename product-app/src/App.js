@@ -2,7 +2,6 @@
 // Packages
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { ConfigProvider } from "antd"
-import { createStoreHook } from "react-redux";
 
 // Components
 import User  from "./modules/users/User";
@@ -17,6 +16,7 @@ import { ProductDetails } from "./modules/products/components/ProductDetails";
 import { EditProductForm } from "./modules/products/components/EditProductForm";
 import { CustomerProductList } from "./modules/products/components/CustomerProductList";
 import { CustomerProductDetails } from "./modules/products/components/CustomerProductDetails";
+import { CustomerFavoriteProducts } from "./modules/products/components/CustomerFavoriteProducts";
 
 // Page
 import { Admin } from "./pages/Admin";
@@ -25,10 +25,6 @@ import { Customer } from "./pages/Customer";
 // Design
 import { customToken } from "./style/AppDesignConfig";
 import "./App.css";
-
-import { Hello } from "./shared/components/Hello";
-import Hello2 from "./shared/components/Hello2";
-import { CustomerFavoriteProducts } from "./modules/products/components/CustomerFavoriteProducts";
 
 const App = () => {
 
@@ -57,6 +53,7 @@ const App = () => {
           </Route>
 
           <Route path="/" element={<Customer />}>  {/* Admin için oluşturulmuş Route */}
+
             <Route path="users" element={<User />} > {/* kullanıcıları yönetmek için oluşturulmuş Route */}
               <Route path=":id" element={<UserDetails />} /> {/* id'si girilen kullanıcının detaylarını gösteren route */}
               <Route path="edit/:id" element={<EditUserForm />} /> {/* varolan bir kullanıcının bilgilerini güncelleyen route */}
@@ -67,10 +64,8 @@ const App = () => {
               <Route path="favorites" element={<CustomerFavoriteProducts />} /> {/* ürünlerin listesini dönen route */}
               <Route path=":id" element={<CustomerProductDetails />} /> {/* id'si girilen ürünün detaylarını gösteren route */}
             </Route>
+            
           </Route>
-
-          <Route path="/1" element={<Hello />} />
-          <Route path="/2" element={<Hello2 />} />
 
         </Routes>
       </BrowserRouter>

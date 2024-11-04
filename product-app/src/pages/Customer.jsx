@@ -1,13 +1,11 @@
 import React from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { Layout, Menu, theme } from 'antd'
-import { CustomerHeaderComponent } from '../components/customer/CustomerHeaderComponent';
-import { CustomerSidebarComponent } from '../components/customer/CustomerSidebarComponent';
-import { BreadCrumbComponent } from '../components/global/BreadCrumbComponent';
-import { ContentComponent } from '../components/global/ContentComponent';
+import { Outlet } from 'react-router-dom'
+import { Layout, theme } from 'antd'
+import { CustomerHeaderComponent } from '../shared/customer/CustomerHeaderComponent';
+import { CustomerSidebarComponent } from '../shared/customer/CustomerSidebarComponent';
+import { BreadCrumbComponent } from '../shared/BreadCrumbComponent';
 
-const { Header, Content, Sider } = Layout;
-
+const { Content } = Layout;
 
 export const Customer = () => {
   
