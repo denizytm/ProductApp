@@ -21,10 +21,9 @@ productInstance.interceptors.request.use(
 productInstance.interceptors.response.use(
     (response) => response,
     (error) => {
-        // Hata durumlarını merkezi olarak işleyebiliriz
+
         if (error.response && error.response.status === 401) {
-            // Örneğin, kullanıcıyı çıkış yapabiliriz
-            console.error("Unauthorized! Logging out...");
+            console.error("Unexpected Error");
         }
         return Promise.reject(error);
     }

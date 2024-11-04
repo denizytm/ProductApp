@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Menu, Layout, theme } from 'antd';
-import { UserOutlined, PieChartOutlined } from '@ant-design/icons';
+import { Menu, Layout } from 'antd';
+import { PieChartOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const { Sider } = Layout;
@@ -23,11 +23,7 @@ export const CustomerSidebarComponent = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [selectedAddress, setSelectedAddress] = useState("");
 
-    const {
-        token: { colorBgContainer, borderRadiusLG },
-    } = theme.useToken();
-
-    const items = [
+    const items = [ // sidebar'da bulunacak olan url'lerin ve butonların belirlenmesi
         getItem('Product', 'sub2', <PieChartOutlined />, null, [
             getItem('All Products', '3', null, () => navigate('/products'), null, '/products'),
             getItem('My Favorites', '4', null, () => navigate('/products/favorites'), null, '/products/favorites'),

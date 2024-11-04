@@ -17,21 +17,19 @@ userInstance.interceptors.request.use(
     (error) => Promise.reject(error)
 );
 
-// Response interceptor
 userInstance.interceptors.response.use(
     (response) => response,
     (error) => {
-        // Hata durumlarını merkezi olarak işleyebiliriz
+
         if (error.response && error.response.status === 401) {
-            // Örneğin, kullanıcıyı çıkış yapabiliriz
-            console.error("Unauthorized! Logging out...");
+            console.error("Unexpected Error");
         }
         return Promise.reject(error);
     }
 );
 
 export const fetchUsersFromAPI = async () => {
-    const response = await userInstance.get('/users');  // Burada endpoint'i özelleştirin
+    const response = await userInstance.get('/users');  // istek yollayacağımız end point
     return response.data;
 };
 
