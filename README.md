@@ -40,4 +40,10 @@ http://localhost:3000/favorites => müşterinin kendi favorisine eklediği ürü
 
 ## Proje Yapısı :
 
+src/app -> store yapısının tanımlandığı dosyayı bulundurur <br> 
+src/assets -> image dosyalarını tutan klasör <br>
+src/components -> bileşenlerin bulunduğu klasör <br>
+src/modules -> react redux toolkit yapısına bağlı olan verileri ve bunların style, component dosyalarını tutan yapı <br>
+src/pages -> sayfaların tamamını içeren componentleri içeren klasör <br>
+src/style -> CSS'leri bulunduran klasör <br>
 
