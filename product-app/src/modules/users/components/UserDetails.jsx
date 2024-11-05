@@ -16,13 +16,13 @@ export const UserDetails = () => {
     const {id} = useParams();
     
     const [open, setOpen] = useState(false);
+    const selectedUser = users.find(user => user.id == id);
 
     useEffect(()=>{
-        if(id <= 0 || id > users.length ) 
+        if(!selectedUser) 
             navigate("/admin/users");
     },[]);
 
-    const selectedUser = users.find(user => user.id == id);
 
     const handleDelete = () => {
       deleteUser(id)

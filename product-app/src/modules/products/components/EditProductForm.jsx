@@ -28,10 +28,11 @@ export const EditProductForm = () => {
   const products = useGetProducts();
   const categories = useGetCategories();
 
-  if (id <= 0 || id > products.length ) navigate("/admin/products");
-
+  
   const selectedProduct = products.find(product => product.id == id);
-
+  
+  if (id <= 0 || id > products.length ) navigate("/admin/products");
+  
   const [formData, setFormData] = useState({
     id: id,
     name: "",
@@ -43,6 +44,10 @@ export const EditProductForm = () => {
     discountPer: "",
     newCategory : ""
   });
+  
+  useEffect(()=>{
+    if(!selectedProduct) navigate("/admin/products");
+  },[selectedProduct])
 
   useEffect(() => {
     if (selectedProduct) {

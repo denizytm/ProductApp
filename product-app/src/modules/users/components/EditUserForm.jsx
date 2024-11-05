@@ -29,7 +29,7 @@ export const EditUserForm = () => {
     }); 
     
     useEffect(()=>{
-        if(id <= 0 || id > users.length ) 
+        if(!selectedUser) 
             navigate("/admin/products");
     },[]);
     

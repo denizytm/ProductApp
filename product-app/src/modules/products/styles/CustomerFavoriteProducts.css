@@ -1,12 +1,13 @@
+
 .top-container {
     display: flex; 
     justify-content: flex-end; 
-    align-items: center; 
+    align-items: center;
     margin-bottom: 20px;
-    
+
     .select {
         width: 120px;
-        margin-right: 10px; 
+        margin-right: 10px;
     }
 
     .input {
@@ -15,25 +16,54 @@
 
 }
 
-.row {
- 
+.bottom-container {
+
     .card {
-        width: 70%;
+        min-width: 250px;
+        width: 100%;
         height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
-        .category {
-            font-weight: bold;
+        .card-header {
+            height: 180px;
+            overflow-y: auto;
+            
+            .category {
+                font-weight: bold;
+            }
+
         }
 
-        .space {
-            display: flex;
-            margin: 0;
-        }
+        .card-body {
+            .space {
+                display: flex; 
+                justify-content: space-between; 
+                margin: 0;
+                
+                .discount {
+                    text-decoration: line-through;
+                    margin: 0;
+                }
 
-        h1 {
-            margin: 0;
+                .orginal-price {
+                    margin: 0;
+                }
+                
+                .discount-per {
+                    font-weight: bold;
+                    margin: 0;
+                }
+            }
+
+            .discounted-price {
+                margin: 0;
+                text-align: right;
+            }
+
         }
 
     }
-    
+
 }

@@ -38,9 +38,9 @@ export const CustomerProductDetails = () => {
     }, []);
   
     useEffect(()=>{
-      if(id <= 0 || id > products.length ) 
+      if(selectedProduct) 
         navigate("/products");
-    },[])
+    },[selectedProduct])
 
     const handleAdd = () => {
       addToFavorites(selectedProduct);
@@ -71,8 +71,8 @@ export const CustomerProductDetails = () => {
             </Carousel>
           ) }
           <h2>{selectedProduct.name}</h2>
+          <h3>{selectedProduct.category}</h3>
           <p>{selectedProduct.text}</p>
-          <p>{selectedProduct.category}</p>
           {selectedProduct.discount ? (  /* eğer ürününün indirimi varsa indirimli fiyatı gözüküp orjinal fiyatının üzeri çizili olacaktır. */
             <>
               <h3> Discounted ! ({selectedProduct.discountPer} %) </h3>

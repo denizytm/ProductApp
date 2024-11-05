@@ -29,63 +29,71 @@ export const CustomerFavoriteProducts = () => {
         deleteFavorite(product.id);
     }
 
+    {/* <Space>
+        <Button onClick={()=>navigate(`/products/${product.id}`)}  >See Details</Button>
+        <Button onClick={()=>handleRemove(product)}  >Remove</Button>
+    </Space> */}
 
     if(products.length)
     return (
         <>
-            <div className='top-container'>
-                <Select 
-                    className='select'
-                    defaultValue="name"  
-                    onChange={(value) => setFilteredValue(value)}
-                >
-                    <Option value="name">Name</Option>
-                    <Option value="category">Category</Option>
-                </Select>
-                
-                <Input 
-                    className='input'
-                    placeholder={`Search by ${filteredValue}`}
-                    value={searchData}
-                    onChange={(e) => setSearchData(e.target.value)}
-                />
-            </div>
-          <Row
-            className='row' 
-            gutter={[16, 24]}
-           > 
-            {filteredProducts.map(product => {
-                return (
-                    <Col
-                        span={6}
-                        xs={{ order: 1 }}
-                        sm={{ order: 2 }}
-                        md={{ order: 3 }}
-                        lg={{ order: 4 }}
-                    >
-                        <Card
-                          className='card'
-                          title={product.name}
-                        >
-                            <p className='category' >{product.category}</p>
-                            <p>{ product.text.length > 100 ? product.text.slice(0,100) + "..." : product.text }</p>
-                            <Space className='space' >
-                                <h4 style={product.discount ? {textDecoration : "line-through",margin : 0} : {} } >{ product.price }$</h4>
-                                <h2 style={{fontWeight : "bold", margin : 0}} >{ product.discount ? product.discountPer + "% Discount" : "" }</h2>
-                            </Space>
-                            {product.discount && (
-                                <h1 style={{margin : 0}} >{product.price * (100 - product.discountPer) / 100}$</h1>
-                            ) }
-                            <Space>
-                                <Button onClick={()=>navigate(`/products/${product.id}`)}  >See Details</Button>
-                                <Button onClick={()=>handleRemove(product)}  >Remove</Button>
-                            </Space>
-                        </Card>
-                    </Col>
-                )
-            })}
-          </Row>
-        </>
+        <div className='top-container'>
+            <Select 
+                className='select'
+                defaultValue="name" 
+                onChange={(value) => setFilteredValue(value)}
+            >
+                <Option value="name">Name</Option>
+                <Option value="category">Category</Option>
+            </Select>
+            
+            <Input 
+                className='input'
+                placeholder={`Search by ${filteredValue}`}
+                value={searchData}
+                onChange={(e) => setSearchData(e.target.value)}
+            />
+        </div>
+        <Row className='bottom-container' gutter={[16, 24]}>
+          {filteredProducts.map(product => (
+              <Col
+                  xs={24}     
+                  sm={18}     
+                  md={12}     
+                  lg={6}      
+                  key={product.id}
+              >
+                  <Card
+                    className='card'
+                    title={product.name}
+                  >
+                      <div className='card-header'>
+                          <p className='category'>{product.category}</p>
+                          <p>{product.text.length > 100 ? product.text.slice(0, 100) + "..." : product.text}</p>
+                      </div>
+                      
+                      <div className='card-body' >
+                          <Space className='space'>
+                              {product.discount ? 
+                                  (<h4 className='discount' >{product.price}$</h4>)
+                                      : 
+                                  (<h1 className='orginal-price' >{product.price}$</h1>) 
+                              }
+                              <h2 className='discount-per' >{product.discount ? product.discountPer + "% Discount" : ""}</h2>
+                          </Space>
+                          {product.discount && (
+                              <h1 className='discounted-price'> {product.price * (100 - product.discountPer) / 100}$</h1>
+                          )}
+                        <Space>
+                            <Button onClick={()=>navigate(`/products/${product.id}`)}  >See Details</Button>
+                            <Button onClick={()=>handleRemove(product)}  >Remove</Button>
+                        </Space>
+                      </div>
+                  </Card>
+              </Col>
+          ))}
+        </Row>
+    </>
     );
     else return (
         <>

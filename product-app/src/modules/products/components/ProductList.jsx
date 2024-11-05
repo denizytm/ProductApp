@@ -42,7 +42,7 @@ export const ProductList = () => {
                 />
             </div>
             
-            <Table dataSource={filteredProducts} rowKey="id" style={{ marginLeft: "25px",overflowX : "auto" }} bordered>
+            <Table className='table' dataSource={filteredProducts} rowKey="id" bordered>
                 <Column title="Amount" dataIndex="amount" key="amount" />
                 <Column title="Name" dataIndex="name" key="name" />
                 <Column title="Category" dataIndex="category" key="category" />
