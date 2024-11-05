@@ -1,3 +1,4 @@
+// Packages
 import React, { useState } from 'react';
 import {
   Button,
@@ -8,10 +9,12 @@ import {
   Select,
   Space,
 } from 'antd';
-
+// Components
 import { useCreateProduct } from '../hooks/useCreateProduct';
 import { useNavigate } from 'react-router-dom';
 import { useGetCategories } from '../hooks/useGetCategories';
+// Styling
+import "../styles/AddProductForm.css";
 
 const { Option } = Select;
 
@@ -70,12 +73,10 @@ export const AddProductForm = () => {
 
     return (
         <Form
+          className='form'
           {...formItemLayout}
           onValuesChange={onFormVariantChange}
           variant={componentVariant}
-          style={{
-            maxWidth: 600,
-          }}
           initialValues={{
             variant: componentVariant,
           }}
@@ -144,11 +145,9 @@ export const AddProductForm = () => {
             ]}
           >
             <InputNumber
+              className='input'
               value={formData.price}
               onChange={(e)=>setFormData(oV=>({...oV,price : e}))}
-              style={{
-                width: '100%',
-              }}
             />
           </Form.Item>
     
@@ -163,11 +162,9 @@ export const AddProductForm = () => {
             ]}
           >
             <InputNumber
+              className='input'
               value={formData.amount}
               onChange={(e)=>setFormData(oV=>({...oV,amount : e}))}
-              style={{
-                width: '100%',
-              }}
             />
           </Form.Item>
 

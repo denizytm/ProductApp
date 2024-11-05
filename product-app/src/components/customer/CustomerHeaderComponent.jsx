@@ -1,6 +1,9 @@
+// Packages
 import React from 'react';
 import { Layout, Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
+// Styling
+import "../../style/customer/CustomerHeaderComponent.css";
 
 const { Header } = Layout;
 
@@ -9,23 +12,14 @@ export const CustomerHeaderComponent = () => {
 
   return (
     <Header
-      style={{
-        position: 'fixed',
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        zIndex: '5',
-      }}
+      className='customer-header'
     >
-      <h1 style={{ color: 'white', marginRight: 20 }}>Product App</h1>
+      <h1>Product App</h1>
       <Menu
+        className='customer-menu'
         theme="dark"
         mode="horizontal"
         defaultSelectedKeys={['2']}    
-        style={{
-          flex: 1,
-          minWidth: 0,
-        }}
       >
         <Menu.Item key={1} onClick={()=>navigate("/admin/products")} >Admin</Menu.Item>
         <Menu.Item key={2} onClick={()=>navigate("/products")} >User</Menu.Item>

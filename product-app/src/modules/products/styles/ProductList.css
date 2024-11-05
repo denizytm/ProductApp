@@ -1,0 +1,22 @@
+
+.top-container {
+    display: flex; 
+    justify-content: flex-end; 
+    align-items: center;
+    margin-bottom: 20px;
+
+    .select {
+        width: 120px;
+        margin-right: 10px;
+    }
+
+    .input {
+        width: 200px;
+    }
+
+}
+
+.table {
+    margin-left: 25px;
+    overflow-x: auto;
+}

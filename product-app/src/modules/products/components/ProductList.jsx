@@ -1,7 +1,11 @@
+// Packages
 import React, { useState } from 'react';
 import { Button, Table, Space, Tag, Input, Select } from 'antd';
 import { useNavigate } from 'react-router-dom';
+// Hooks
 import { useGetProducts } from '../hooks/useGetProducts';
+// Styling
+import "../styles/ProductList.css";
 
 const { Column } = Table;
 const { Option } = Select;
@@ -20,10 +24,10 @@ export const ProductList = () => {
 
     return products.length ? (
         <div>
-            <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: "20px" }}>
+            <div className='top-container' >
                 <Select 
+                    className='select'
                     defaultValue="name" 
-                    style={{ width: 120, marginRight: 10 }} 
                     onChange={(value) => setFilteredValue(value)}
                 >
                     <Option value="name">Name</Option>
@@ -31,10 +35,10 @@ export const ProductList = () => {
                 </Select>
                 
                 <Input 
+                    className='input'
                     placeholder={`Search by ${filteredValue}`}
                     value={searchData}
                     onChange={(e) => setSearchData(e.target.value)}
-                    style={{ width: 200 }}
                 />
             </div>
             

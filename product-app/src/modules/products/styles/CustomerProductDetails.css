@@ -1,0 +1,23 @@
+.container {
+    margin : 50px;
+
+    .carousel {
+        width: 40%;
+
+        img {
+            height: 300px;
+            width: 100%;
+        }
+
+    }
+
+    .discounted {
+        text-decoration: line-through;
+    }
+
+    .bottom-container {
+        display: flex;
+        gap : 20px;
+    }
+
+}

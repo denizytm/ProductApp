@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import { Button, Card, Col, Divider, Form, Input, Space } from 'antd';
+// Packages
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Button, Card, Divider, Form, Input, Space } from 'antd';
+// Hooks
 import useCreateUser from '../hooks/useCreateUsers';
+// Styling
+import "../styles/AddUserForm.css";
 
 export const AddUserForm = () => {
 
@@ -25,9 +29,9 @@ export const AddUserForm = () => {
     }
     
     return (
-        <Divider style={{margin : "50px"}} >
-            <h1 style={{textAlign : "center"}} >New User</h1>
-            <Card title={"Create User"} style={{ width: 400, margin: '20px auto' }}>
+        <Divider className='divider' >
+            <h1>New User</h1>
+            <Card className='card' title={"Create User"} >
                 <Form
                     layout="vertical"
                     onFinish={handleFinish}
@@ -93,7 +97,7 @@ export const AddUserForm = () => {
                         />
                     </Form.Item>
 
-                    <Space style={{ display: 'flex', gap: 20 }}>
+                    <Space className='space' >
                         <Button type="primary" htmlType="submit">Update</Button>
                         <Button onClick={() => navigate(`/admin/users`)}>Cancel</Button>
                     </Space>

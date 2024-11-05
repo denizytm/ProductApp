@@ -1,7 +1,10 @@
+// Packages
 import React, { useEffect, useState } from 'react';
 import { Menu, Layout, theme } from 'antd';
-import { UserOutlined, PieChartOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { UserOutlined, PieChartOutlined } from '@ant-design/icons';
+// Styling
+import "../../style/admin/AdminSidebarComponent.css";
 
 const { Sider } = Layout;
 
@@ -47,7 +50,7 @@ export const AdminSidebarComponent = () => {
 
     return (
       <Sider 
-        style={{ minHeight: "100vh", position: "fixed", top: "64px", zIndex: "5" }} 
+        className='admin-sider'
         collapsible 
         collapsed={collapsed} 
         onCollapse={(value) => setCollapsed(value)}>

@@ -1,9 +1,12 @@
+// Packages
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Button, Card, Col, Divider, Form, Input, Space } from 'antd';
+import { Button, Card, Divider, Form, Input, Space } from 'antd';
+// Hooks
 import { useGetUsers } from '../hooks/useGetUsers';
 import { useEditUser } from '../hooks/useEditUser';
-
+// Styling
+import "../styles/EditUserForm.css";
 
 export const EditUserForm = () => {
 
@@ -52,9 +55,9 @@ export const EditUserForm = () => {
     
     if(selectedUser && ready)
       return (
-        <Divider style={{margin : "50px"}} >
-            <h1 style={{textAlign : "center"}} >Edit Profile</h1>
-            <Card title={selectedUser.username + "'s Profile"} style={{ width: 400, margin: '20px auto' }}>
+        <Divider className='divider' >
+            <h1 >Edit Profile</h1>
+            <Card className='card' title={selectedUser.username + "'s Profile"}>
                 <Form
                     layout="vertical"
                     onFinish={handleFinish}
@@ -120,7 +123,7 @@ export const EditUserForm = () => {
                         />
                     </Form.Item>
 
-                    <Space style={{ display: 'flex', gap: 20 }}>
+                    <Space>
                         <Button type="primary" htmlType="submit">Update</Button>
                         <Button onClick={() => navigate(`/admin/users`)}>Cancel</Button>
                     </Space>

@@ -1,23 +1,24 @@
+// Packages
 import React from 'react'
 import { Breadcrumb } from 'antd'
+// Styling
+import "../style/global/BreadCrumbComponent.css";
 
 export const BreadCrumbComponent = () => {
   return (
     <Breadcrumb
-            items={[
-              {
-                title: 'Home',
-              },
-              {
-                title: 'List',
-              },
-              {
-                title: 'App',
-              },
-            ]}
-            style={{
-              margin: '16px 0',
-            }}
-          />
+      className='bread-crumb'
+      items={[
+        {
+          title: 'Home',
+        },
+        {
+          title: 'List',
+        },
+        {
+          title: 'App',
+        },
+      ]}
+    />
   )
 }

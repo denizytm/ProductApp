@@ -1,5 +1,5 @@
+// Packages
 import React, { useEffect, useState } from 'react';
-
 import {
   Button,
   Form,
@@ -8,11 +8,13 @@ import {
   Select,
   Space,
 } from 'antd';
-
 import { useNavigate, useParams } from 'react-router-dom';
+// Hooks
 import { useEditProduct } from '../hooks/useEditProduct';
 import { useGetProducts } from '../hooks/useGetProducts';
 import { useGetCategories } from '../hooks/useGetCategories';
+// Styling
+import "../styles/EditProductForm.css";
 
 const { Option } = Select;
 
@@ -68,7 +70,7 @@ export const EditProductForm = () => {
   if(selectedProduct && formData && formData.name)
   return (
     <Form
-      style={{ maxWidth: 600,margin : 25 }}
+      className='form'
       initialValues={formData} // Initial values are set here
       onFinish={handleSubmit} // Handle form submission
     >
@@ -88,7 +90,7 @@ export const EditProductForm = () => {
         rules={[{ required: true, message: 'Please enter a price for the product' }]}
       >
         <InputNumber
-          style={{ width: '100%' }}
+          className='input'
           onChange={(value) => setFormData({ ...formData, price: value })}
         />
       </Form.Item>
@@ -99,7 +101,7 @@ export const EditProductForm = () => {
         rules={[{ required: true, message: 'Please enter an amount for the product' }]}
       >
         <InputNumber
-          style={{ width: '100%' }}
+          className='input'
           onChange={(value) => setFormData({ ...formData, amount : value })}
         />
       </Form.Item>
@@ -125,7 +127,7 @@ export const EditProductForm = () => {
           rules={[{ required: true, message: 'Please enter a discount rate for the product' }]}
         >
           <InputNumber
-            style={{ width: '100%' }}
+            className='input'
             onChange={(value) => setFormData({ ...formData, discountPer: value })}
           />
         </Form.Item>

@@ -1,9 +1,13 @@
+// Packages
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { Layout, theme } from 'antd'
-import { AdminHeaderComponent } from "../shared/admin/AdminHeaderComponent"
-import { AdminSidebarComponent } from "../shared/admin/AdminSidebarComponent"
-import { BreadCrumbComponent } from "../shared/BreadCrumbComponent";
+// Components
+import { AdminHeaderComponent } from "../components/admin/AdminHeaderComponent"
+import { AdminSidebarComponent } from "../components/admin/AdminSidebarComponent"
+import { BreadCrumbComponent } from "../components/BreadCrumbComponent";
+// Styling
+import "../style/admin/Admin.css"
 
 const { Header, Content, Sider } = Layout;
 
@@ -23,18 +27,13 @@ export const Admin = () => {
       <AdminHeaderComponent {...{items1}} />
       <Layout>
         <AdminSidebarComponent />
-        <Layout
-         style={{
-          padding : "25px",
-          paddingLeft: '300px',
-         }}
+        <Layout 
+         className='admin-layout'
         >
           <BreadCrumbComponent />
           <Content
+           className='admin-content'
            style={{
-           padding: 24,
-           margin: 0,
-           minHeight: 280,
            background: colorBgContainer,
            borderRadius: borderRadiusLG,
           }}

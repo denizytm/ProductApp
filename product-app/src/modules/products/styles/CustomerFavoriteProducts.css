@@ -1,0 +1,39 @@
+.top-container {
+    display: flex; 
+    justify-content: flex-end; 
+    align-items: center; 
+    margin-bottom: 20px;
+    
+    .select {
+        width: 120px;
+        margin-right: 10px; 
+    }
+
+    .input {
+        width: 200px;
+    }
+
+}
+
+.row {
+ 
+    .card {
+        width: 70%;
+        height: 100%;
+
+        .category {
+            font-weight: bold;
+        }
+
+        .space {
+            display: flex;
+            margin: 0;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+    }
+    
+}

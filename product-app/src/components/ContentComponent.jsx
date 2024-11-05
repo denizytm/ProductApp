@@ -1,5 +1,8 @@
+// Packages
 import React from 'react'
 import { Layout, theme } from 'antd';
+// Styling
+import "../style/global/ContentComponent.css";
 const { Header, Content, Sider } = Layout;
 
 export const ContentComponent = (Data) => {
@@ -10,10 +13,8 @@ export const ContentComponent = (Data) => {
 
   return (
     <Content
+    className='content-component'
     style={{
-      padding: 24,
-      margin: 0,
-      minHeight: 280,
       background: colorBgContainer,
       borderRadius: borderRadiusLG,
     }}

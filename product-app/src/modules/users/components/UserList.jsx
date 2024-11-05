@@ -1,7 +1,11 @@
+// Packages
 import React, { useState } from 'react';
-import { Button, Table, Space, Tag, Input, Select } from 'antd';
+import { Button, Table, Space, Input, Select } from 'antd';
 import { useNavigate } from 'react-router-dom';
+// Hooks
 import { useGetUsers } from '../hooks/useGetUsers';
+// Styling
+import "../styles/UserList.css";
 
 const { Column } = Table;
 const { Option } = Select;
@@ -20,10 +24,10 @@ export const UserList = () => {
 
     return users.length ? (
         <>
-            <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: "20px" }}>
+            <div className='top-container' >
                 <Select 
+                    className='select'
                     defaultValue="name" 
-                    style={{ width: 120, marginRight: 10 }} 
                     onChange={(value) => setFilteredValue(value)}
                 >
                     <Option value="name">Name</Option>
@@ -32,14 +36,14 @@ export const UserList = () => {
                 </Select>
                 
                 <Input 
+                    className='input'
                     placeholder={`Search by ${filteredValue}`}
                     value={searchData}
                     onChange={(e) => setSearchData(e.target.value)}
-                    style={{ width: 200 }}
                 />
             </div>
             
-            <Table dataSource={filteredUsers} rowKey="id" style={{ marginLeft: "50px", overflowX : "auto" }} bordered>
+            <Table className='table' dataSource={filteredUsers} rowKey="id" bordered>
                 <Column title="Username" dataIndex="username" key="username" />
                 <Column title="First Name" dataIndex="name" key="name" />
                 <Column title="Last Name" dataIndex="surname" key="surname" />

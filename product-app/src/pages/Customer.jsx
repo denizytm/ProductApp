@@ -1,9 +1,13 @@
+// Packages
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import { Layout, theme } from 'antd'
-import { CustomerHeaderComponent } from '../shared/customer/CustomerHeaderComponent';
-import { CustomerSidebarComponent } from '../shared/customer/CustomerSidebarComponent';
-import { BreadCrumbComponent } from '../shared/BreadCrumbComponent';
+// Components
+import { CustomerHeaderComponent } from '../components/customer/CustomerHeaderComponent';
+import { CustomerSidebarComponent } from '../components/customer/CustomerSidebarComponent';
+import { BreadCrumbComponent } from '../components/BreadCrumbComponent';
+// Styling
+import "../style/customer/Customer.css"
 
 const { Content } = Layout;
 
@@ -19,20 +23,14 @@ export const Customer = () => {
       <Layout>
         <CustomerSidebarComponent />
         <Layout
-         style={{
-          padding : "25px",
-          paddingLeft: '300px',
-         }}
+          className='customer-layout'
         >
           <BreadCrumbComponent />
           <Content
+           className='customer-content'
            style={{
-           padding: 24,
-           margin: 0,
-           minHeight: 280,
            background: colorBgContainer,
            borderRadius: borderRadiusLG,
-
           }}
           >
             <Outlet />

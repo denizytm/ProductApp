@@ -1,14 +1,18 @@
+// Packages
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, Carousel } from 'antd';
+// Hooks
 import { useGetProducts } from '../hooks/useGetProducts';
-
-import image1 from "../../../assets/1.jpg";
-import image2 from "../../../assets/2.jpg";
-import image3 from "../../../assets/3.webp";
 import { useCreateFavorite } from '../../favorites/hooks/useCreateFavorite';
 import { useGetFavorites } from '../../favorites/hooks/useGetFavorites';
 import { useDeleteFavorite } from '../../favorites/hooks/useDeleteFavorite';
+// Assets
+import image1 from "../../../assets/1.jpg";
+import image2 from "../../../assets/2.jpg";
+import image3 from "../../../assets/3.webp";
+// Styling
+import "../styles/CustomerProductDetails.css";
 
 export const CustomerProductDetails = () => {
 
@@ -50,19 +54,19 @@ export const CustomerProductDetails = () => {
 
     if(selectedProduct)
       return (
-        <div style={{margin : "50px"}} >
+        <div className='container' >
           <Button onClick={()=>navigate("/products")}> Go Back </Button>
           <h1>ProductDetails</h1>
           {width > 900 && (
-            <Carousel draggable={true} style={{width : "40%"}} arrows infinite={true}>
+            <Carousel className='carousel' draggable={true} arrows infinite={true}>
               <div>
-                <img src={image1} height={300} style={{width : "100%"}} /> {/* Database'de ürün fotosu kaydedemedğimden static foto ekledim */}
+                <img src={image1} /> {/* Database'de ürün fotosu kaydedemedğimden static foto ekledim */}
               </div>
               <div>
-                <img src={image2} height={300} style={{width : "100%"}} />
+                <img src={image2} />
               </div>
               <div>
-                <img src={image3} height={300} style={{width : "100%"}} />
+                <img src={image3} />
               </div>
             </Carousel>
           ) }
@@ -72,11 +76,11 @@ export const CustomerProductDetails = () => {
           {selectedProduct.discount ? (  /* eğer ürününün indirimi varsa indirimli fiyatı gözüküp orjinal fiyatının üzeri çizili olacaktır. */
             <>
               <h3> Discounted ! ({selectedProduct.discountPer} %) </h3>
-              <h3 style={{textDecoration : "line-through"}} >{selectedProduct.price} $ </h3>
+              <h3 className='discounted'>{selectedProduct.price} $ </h3>
               <h2>{ selectedProduct.price * (100 - selectedProduct.discountPer) / 100} $ </h2>
             </>
           ) : <h2>{selectedProduct.price} $ </h2> }
-          <div style={{display : "flex", gap : 20}} >
+          <div className='bottom-container' >
             {favorites.find(favorite => favorite.id == selectedProduct.id) ? (
               <Button type='primary' onClick={handleRemove} > Remove From Favorites </Button>
               ) : 

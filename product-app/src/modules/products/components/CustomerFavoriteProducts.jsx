@@ -1,10 +1,12 @@
+// Packages
 import React, { useEffect, useState } from 'react';
-import { Button, Card, Col, Divider, Row, Select, Space, Input } from 'antd';
+import { Button, Card, Col, Row, Select, Space, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { useGetProducts } from '../hooks/useGetProducts';
-import { useFetchProducts } from '../hooks/useFetchProducts';
+// Components
 import { useGetFavorites } from '../../favorites/hooks/useGetFavorites';
 import { useDeleteFavorite } from '../../favorites/hooks/useDeleteFavorite';
+// Styling
+import "../styles/CustomerFavoriteProducts.css";
 
 const { Option } = Select;
 
@@ -27,17 +29,14 @@ export const CustomerFavoriteProducts = () => {
         deleteFavorite(product.id);
     }
 
-    useEffect(()=>{
-        console.log(products)
-    },[products])
 
     if(products.length)
     return (
         <>
-            <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: "20px" }}>
+            <div className='top-container'>
                 <Select 
-                    defaultValue="name" 
-                    style={{ width: 120, marginRight: 10 }} 
+                    className='select'
+                    defaultValue="name"  
                     onChange={(value) => setFilteredValue(value)}
                 >
                     <Option value="name">Name</Option>
@@ -45,13 +44,16 @@ export const CustomerFavoriteProducts = () => {
                 </Select>
                 
                 <Input 
+                    className='input'
                     placeholder={`Search by ${filteredValue}`}
                     value={searchData}
                     onChange={(e) => setSearchData(e.target.value)}
-                    style={{ width: 200 }}
                 />
             </div>
-          <Row gutter={[16, 24]}> 
+          <Row
+            className='row' 
+            gutter={[16, 24]}
+           > 
             {filteredProducts.map(product => {
                 return (
                     <Col
@@ -62,15 +64,12 @@ export const CustomerFavoriteProducts = () => {
                         lg={{ order: 4 }}
                     >
                         <Card
+                          className='card'
                           title={product.name}
-                          style={{
-                            width : "70%",
-                            height : "100%"
-                          }}
                         >
-                            <p style={{fontWeight : "bold"}} >{product.category}</p>
+                            <p className='category' >{product.category}</p>
                             <p>{ product.text.length > 100 ? product.text.slice(0,100) + "..." : product.text }</p>
-                            <Space style={{display : "flex", margin : "0"}} >
+                            <Space className='space' >
                                 <h4 style={product.discount ? {textDecoration : "line-through",margin : 0} : {} } >{ product.price }$</h4>
                                 <h2 style={{fontWeight : "bold", margin : 0}} >{ product.discount ? product.discountPer + "% Discount" : "" }</h2>
                             </Space>

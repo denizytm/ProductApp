@@ -1,0 +1,7 @@
+
+.admin-sider {
+    min-height: 100vh;
+    position: fixed;
+    top: 64px; 
+    z-index: 5;
+}

@@ -1,7 +1,11 @@
+// Packages
 import React, { useState } from 'react';
 import { Button, Card, Col, Input, Row, Select, Space } from 'antd';
 import { useNavigate } from 'react-router-dom';
+// Hooks
 import { useGetProducts } from '../hooks/useGetProducts';
+// Styling
+import "../styles/CustomerProductList.css";
 
 const { Option } = Select;
 
@@ -20,10 +24,10 @@ export const CustomerProductList = () => {
 
     return (
         <>
-            <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginBottom: "20px" }}>
+            <div className='top-container'>
                 <Select 
+                    className='select'
                     defaultValue="name" 
-                    style={{ width: 120, marginRight: 10 }} 
                     onChange={(value) => setFilteredValue(value)}
                 >
                     <Option value="name">Name</Option>
@@ -31,13 +35,13 @@ export const CustomerProductList = () => {
                 </Select>
                 
                 <Input 
+                    className='input'
                     placeholder={`Search by ${filteredValue}`}
                     value={searchData}
                     onChange={(e) => setSearchData(e.target.value)}
-                    style={{ width: 200 }}
                 />
             </div>
-            <Row gutter={[16, 24]}>
+            <Row className='bottom-container' gutter={[16, 24]}>
               {filteredProducts.map(product => (
                   <Col
                       xs={24}     
@@ -47,34 +51,28 @@ export const CustomerProductList = () => {
                       key={product.id}
                   >
                       <Card
+                        className='card'
                         title={product.name}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          display: 'flex',
-                          flexDirection: 'column',
-                          justifyContent: 'space-between'
-                        }}
                         actions={[
                             <Button onClick={() => navigate(`/products/${product.id}`)}>See Details</Button>
                         ]}
                       >
-                          <div style={{ height: 180, overflowY: "auto" }}>
-                              <p style={{ fontWeight: "bold" }}>{product.category}</p>
+                          <div className='card-header'>
+                              <p className='category'>{product.category}</p>
                               <p>{product.text.length > 100 ? product.text.slice(0, 100) + "..." : product.text}</p>
                           </div>
                           
-                          <div>
-                              <Space style={{ display: "flex", justifyContent: "space-between", margin: "0" }}>
+                          <div className='card-body' >
+                              <Space className='space'>
                                   {product.discount ? 
-                                      (<h4 style={{ textDecoration: "line-through", margin: 0 }}>{product.price}$</h4>)
+                                      (<h4 className='discount' >{product.price}$</h4>)
                                           : 
-                                      (<h1 style={{ margin: 0 }}>{product.price}$</h1>) 
+                                      (<h1 className='orginal-price' >{product.price}$</h1>) 
                                   }
-                                  <h2 style={{ fontWeight: "bold", margin: 0 }}>{product.discount ? product.discountPer + "% Discount" : ""}</h2>
+                                  <h2 className='discount-per' >{product.discount ? product.discountPer + "% Discount" : ""}</h2>
                               </Space>
                               {product.discount && (
-                                  <h1 style={{ margin: 0, textAlign: 'right' }}> {product.price * (100 - product.discountPer) / 100}$</h1>
+                                  <h1 className='discounted-price'> {product.price * (100 - product.discountPer) / 100}$</h1>
                               )}
                           </div>
                       </Card>

@@ -1,0 +1,18 @@
+.customer-header {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    z-index: 5;    
+
+    h1 {
+        color : white;
+        margin-right: 20px;
+    }
+    
+    .customer-menu {
+        flex : 1;
+        min-width: 0;
+    }
+    
+}

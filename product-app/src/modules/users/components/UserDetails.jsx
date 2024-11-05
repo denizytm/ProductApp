@@ -1,9 +1,12 @@
+// Packages
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, Card, Col, Divider, Modal, Row, Space } from 'antd';
+// Hooks
 import { useGetUsers } from '../hooks/useGetUsers';
 import { useDeleteUser } from '../hooks/useDeleteUser';
-
+// Styling
+import "../styles/UserDetails.css";
 
 export const UserDetails = () => {
 
@@ -35,9 +38,9 @@ export const UserDetails = () => {
 
     if(selectedUser)
       return (
-        <Divider style={{margin : "50px"}} >
-            <h1 style={{textAlign : "center"}} >Profile Details</h1>
-            <Card title={selectedUser.username+"'s Profile"} style={{ width: 400, margin: '20px auto' }}>
+        <Divider className='divider'>
+            <h1 >Profile Details</h1>
+            <Card className='card' title={selectedUser.username+"'s Profile"} >
                 <Row gutter={[16, 16]}>
                     <Col span={24}>
                         <p><strong>Username:</strong> {selectedUser.username}</p>
@@ -55,7 +58,7 @@ export const UserDetails = () => {
                         <p><strong>Email:</strong> {selectedUser.email}</p>
                     </Col>
                     <Col>
-                        <Space style={{display : "flex", gap : 20}} >
+                        <Space className='space' >
                           <Button onClick={()=>navigate(`/admin/users/edit/${selectedUser.id}`)} > Edit </Button>
                           <Button type="primary" onClick={showModal}> Delete </Button>
                         </Space>

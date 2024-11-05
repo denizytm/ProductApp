@@ -1,0 +1,19 @@
+
+.divider {
+    margin: 50px;
+    
+    h1 {
+        text-align: center;
+    }
+
+    .card {
+        width: 400px; 
+        margin: 20px auto;
+    }
+
+    .space {
+        display: flex;
+        gap: 20px;
+    }
+
+}
