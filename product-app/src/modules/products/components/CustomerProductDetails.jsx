@@ -38,7 +38,7 @@ export const CustomerProductDetails = () => {
     }, []);
   
     useEffect(()=>{
-      if(selectedProduct) 
+      if(!selectedProduct) 
         navigate("/products");
     },[selectedProduct])
 

@@ -1,5 +1,5 @@
 // Packages
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Card, Col, Row, Select, Space, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
 // Components
@@ -29,71 +29,68 @@ export const CustomerFavoriteProducts = () => {
         deleteFavorite(product.id);
     }
 
-    {/* <Space>
-        <Button onClick={()=>navigate(`/products/${product.id}`)}  >See Details</Button>
-        <Button onClick={()=>handleRemove(product)}  >Remove</Button>
-    </Space> */}
-
     if(products.length)
     return (
-        <>
-        <div className='top-container'>
-            <Select 
-                className='select'
-                defaultValue="name" 
-                onChange={(value) => setFilteredValue(value)}
-            >
-                <Option value="name">Name</Option>
-                <Option value="category">Category</Option>
-            </Select>
-            
-            <Input 
-                className='input'
-                placeholder={`Search by ${filteredValue}`}
-                value={searchData}
-                onChange={(e) => setSearchData(e.target.value)}
-            />
-        </div>
-        <Row className='bottom-container' gutter={[16, 24]}>
-          {filteredProducts.map(product => (
-              <Col
-                  xs={24}     
-                  sm={18}     
-                  md={12}     
-                  lg={6}      
-                  key={product.id}
-              >
-                  <Card
-                    className='card'
-                    title={product.name}
+       <>
+            <div className='top-container'>
+                <Select 
+                    className='select'
+                    defaultValue="name" 
+                    onChange={(value) => setFilteredValue(value)}
+                >
+                    <Option value="name">Name</Option>
+                    <Option value="category">Category</Option>
+                </Select>
+                
+                <Input 
+                    className='input'
+                    placeholder={`Search by ${filteredValue}`}
+                    value={searchData}
+                    onChange={(e) => setSearchData(e.target.value)}
+                />
+            </div>
+            <Row className='bottom-container' gutter={[16, 24]}>
+              {filteredProducts.map(product => (
+                  <Col
+                      xs={24}     
+                      sm={18}     
+                      md={12}     
+                      lg={6}      
+                      key={product.id}
                   >
-                      <div className='card-header'>
-                          <p className='category'>{product.category}</p>
-                          <p>{product.text.length > 100 ? product.text.slice(0, 100) + "..." : product.text}</p>
-                      </div>
-                      
-                      <div className='card-body' >
-                          <Space className='space'>
-                              {product.discount ? 
-                                  (<h4 className='discount' >{product.price}$</h4>)
-                                      : 
-                                  (<h1 className='orginal-price' >{product.price}$</h1>) 
-                              }
-                              <h2 className='discount-per' >{product.discount ? product.discountPer + "% Discount" : ""}</h2>
-                          </Space>
-                          {product.discount && (
-                              <h1 className='discounted-price'> {product.price * (100 - product.discountPer) / 100}$</h1>
-                          )}
-                        <Space>
-                            <Button onClick={()=>navigate(`/products/${product.id}`)}  >See Details</Button>
-                            <Button onClick={()=>handleRemove(product)}  >Remove</Button>
-                        </Space>
-                      </div>
-                  </Card>
-              </Col>
-          ))}
-        </Row>
-    </>
+                      <Card
+                        className='card'
+                        title={product.name}
+                        actions={[
+                            <Space>
+                                <Button onClick={()=>navigate(`/products/${product.id}`)}  >See Details</Button>
+                                <Button onClick={()=>handleRemove(product)}  >Remove</Button>
+                            </Space> 
+                        ]}
+                        >
+                          <div className='card-header'>
+                              <p className='category'>{product.category}</p>
+                              <p>{product.text.length > 100 ? product.text.slice(0, 100) + "..." : product.text}</p>
+                          </div>
+                          
+                          <div className='card-body' >
+                              <Space className='space'>
+                                  {product.discount ? 
+                                      (<h4 className='discount' >{product.price}$</h4>)
+                                          : 
+                                      (<h1 className='orginal-price' >{product.price}$</h1>) 
+                                  }
+                                  <h2 className='discount-per' >{product.discount ? product.discountPer + "% Discount" : ""}</h2>
+                              </Space>
+                              {product.discount && (
+                                  <h1 className='discounted-price'> {product.price * (100 - product.discountPer) / 100}$</h1>
+                              )}
+                          </div>
+                      </Card>
+                  </Col>
+              ))}
+            </Row>
+        </>
     );
     else return (
         <>
