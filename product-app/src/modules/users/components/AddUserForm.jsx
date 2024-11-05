@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button, Card, Col, Divider, Form, Input, Space } from 'antd';
-import { useGetUsers } from '../hooks/useGetUsers';
 import useCreateUser from '../hooks/useCreateUsers';
 
 export const AddUserForm = () => {
 
     const navigate = useNavigate();
 
-    const users = useGetUsers();
     const createUser = useCreateUser();
 
     const [formData,setFormData] = useState({

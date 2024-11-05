@@ -54,11 +54,6 @@ const App = () => {
 
           <Route path="/" element={<Customer />}>  {/* Admin için oluşturulmuş Route */}
 
-            <Route path="users" element={<User />} > {/* kullanıcıları yönetmek için oluşturulmuş Route */}
-              <Route path=":id" element={<UserDetails />} /> {/* id'si girilen kullanıcının detaylarını gösteren route */}
-              <Route path="edit/:id" element={<EditUserForm />} /> {/* varolan bir kullanıcının bilgilerini güncelleyen route */}
-            </Route>
-
             <Route path="products" element={<Product />} > {/* ürünleri yönetmek için oluşturulmuş Route */}
               <Route path="" element={<CustomerProductList />} /> {/* ürünlerin listesini dönen route */}
               <Route path="favorites" element={<CustomerFavoriteProducts />} /> {/* ürünlerin listesini dönen route */}
