@@ -9,7 +9,7 @@ import { BreadCrumbComponent } from "../components/BreadCrumbComponent";
 // Styling
 import "../style/admin/Admin.css"
 
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 
 const items1 = ['Admin', 'User'].map((key,value) => ({
   key : value + 1,
