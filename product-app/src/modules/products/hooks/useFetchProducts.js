@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { fetchProducts } from '../store/productSlice';
 import { useDispatch } from 'react-redux';
 
