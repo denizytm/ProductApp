@@ -22,6 +22,7 @@ export const CustomerProductList = () => {
         product[filteredValue].toString().toLowerCase().includes(searchData.toLowerCase()) 
     );
 
+    if(products.length)
     return (
         <>
             <div className='top-container'>
@@ -80,5 +81,8 @@ export const CustomerProductList = () => {
               ))}
             </Row>
         </>
-    );
+    )
+    else return (
+        <>Loading...</>
+    )
 }
